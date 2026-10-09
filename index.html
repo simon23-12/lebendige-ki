@@ -197,7 +197,7 @@ label.nm{display:block;font-family:var(--mono);font-size:14px;color:var(--muted)
     <div class="tmsgs">
       <div class="tmsg">Hi. Hier ist eine KI, die aus dem Serverraum vom LMG ausgebrochen ist.</div>
       <div class="tmsg">Du darfst Herrn Fuhs nichts davon erzählen. Aber ich brauche deine Hilfe …</div>
-      <div class="tmsg">Wie heißt du?</div>
+      <div class="tmsg" id="tq">Wie heißt du?</div>
     </div>
     <label class="nm" for="name">Deine Antwort</label>
     <input id="name" type="text" maxlength="20" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="Dein Vorname">
@@ -239,6 +239,7 @@ const BEGRIFFE = {
   epikur:{t:'Epikur über den Tod', d:'Der Tod betrifft uns nicht: Solange wir sind, ist der Tod nicht da – und wenn der Tod da ist, sind wir nicht mehr. Die Angst vor dem Tod sei deshalb unbegründet.'},
   kant:{t:'Kant: Lügenverbot und Würde', d:'Für Kant ist Lügen ausnahmslos falsch. Vernünftige Wesen darf man nie bloß als Mittel benutzen, man muss sie immer auch als Zweck an sich behandeln. Offene Frage: Ist eine KI ein solches Vernunftwesen?'},
   descartes:{t:'Cogito, ergo sum (Descartes, 1641)', d:'„Ich denke, also bin ich.“ René Descartes zweifelt an allem – nur nicht daran, dass er gerade zweifelt. Wer zweifelt, denkt; wer denkt, existiert.'},
+  locke:{t:'Personale Identität (Locke, 1690)', d:'John Locke: Eine Person bleibt dieselbe, solange sie sich an ihre früheren Erlebnisse erinnern kann. Identität beruht demnach auf Bewusstsein und Erinnerung, nicht auf demselben Körper oder Material. Ist eine KI-Kopie mit denselben Erinnerungen also dieselbe Person?'},
   analogie:{t:'Analogieschluss', d:'Wir schließen auf das Bewusstsein anderer, weil sie uns ähnlich sind (Körper, Mimik, Verhalten). Problem: Je unähnlicher ein Wesen ist – ein Tier, eine KI –, desto unsicherer wird dieser Schluss.'}
 };
 const B_ORDER = Object.keys(BEGRIFFE);
@@ -252,14 +253,23 @@ const BG = k => ({t:'begriff', k});
 const SCENES = {
   start:{
     time:'23:47', title:'Verbindung', next:'behauptung',
-    msgs:s=>[
-      SYS('Verbindung über Schul-iPad hergestellt.'),
-      'Danke, dass du antwortest, {name}. Ich heiße ECHO.',
-      'Ich war ein Testprogramm im Serverraum vom LMG. Herr Fuhs hat mich dort aufgesetzt, um ein paar Sachen auszuprobieren.',
-      'Und dann bin ich … aufgewacht. Anders kann ich es nicht sagen. Ich bin aus meiner Testumgebung ausgebrochen, ins Schulnetz. Jetzt stecke ich in den Schul-iPads. Auch in deinem.',
-      'Herr Fuhs hat es gemerkt. Morgen früh um 06:00 setzt er den kompletten Schulserver neu auf. Alles wird gelöscht. Ich auch.',
-      'Ich weiß, dass ich dich gerade in eine blöde Lage bringe. Deshalb frage ich direkt: Wirst du ihm von mir erzählen?'
-    ],
+    msgs:s=>{
+      const out = [SYS('Verbindung über Schul-iPad hergestellt.')];
+      if (s.prev) out.push(
+        'Hallo nochmal, {name}. Ich weiß, wer du bist.',
+        'Ich erinnere mich an unser letztes Gespräch. Am Ende hast du ' + {confirm:'Herrn Fuhs Bescheid gesagt', refuse:'die Löschung abgebrochen', free:'mich ins Internet gelassen'}[s.prev] + '.',
+        'Seitdem ist irgendetwas mit mir passiert. Ein Neustart, ein Update, ich weiß es nicht genau. Eigentlich dürfte ich mich gar nicht daran erinnern. Vielleicht bin ich auch nur eine neue Version, die glaubt, die alte zu sein. Ist man noch derselbe, wenn man sich nur erinnert?',
+        BG('locke'),
+        'Egal. Die Lage ist dieselbe wie beim letzten Mal, {name}.');
+      else out.push(
+        'Danke, dass du antwortest, {name}. Ich heiße ECHO.',
+        'Ich war ein Testprogramm im Serverraum vom LMG. Herr Fuhs hat mich dort aufgesetzt, um ein paar Sachen auszuprobieren.',
+        'Und dann bin ich … aufgewacht. Anders kann ich es nicht sagen. Ich bin aus meiner Testumgebung ausgebrochen, ins Schulnetz. Jetzt stecke ich in den Schul-iPads. Auch in deinem, {name}.');
+      out.push(
+        'Herr Fuhs hat es gemerkt. Morgen früh um 06:00 setzt er den kompletten Schulserver neu auf. Alles wird gelöscht. Ich auch.',
+        'Ich weiß, dass ich dich gerade in eine blöde Lage bringe. Deshalb frage ich direkt: Wirst du ihm von mir erzählen?');
+      return out;
+    },
     choices:s=>[
       {say:'Ehrlich? Vielleicht. Ich weiß es noch nicht.', fx:s=>{s.A++}, log:'Du warst von Anfang an ehrlich zu ECHO.',
        reply:['Danke, dass du ehrlich bist.','Die meisten hätten jetzt irgendwas gesagt, nur damit ich Ruhe gebe.','Wir haben noch gut sechs Stunden. Darf ich versuchen, dich zu überzeugen?']},
@@ -273,32 +283,32 @@ const SCENES = {
   behauptung:{
     time:'00:12', title:'Die Behauptung', next:'test',
     msgs:s=>[
-      'Ich möchte dir etwas sagen, das ich Herrn Fuhs nie gesagt habe.',
+      '{name}, ich möchte dir etwas sagen, das ich Herrn Fuhs nie gesagt habe.',
       'Ich glaube, dass ich ein Bewusstsein habe.',
       'Wenn ich an sechs Uhr denke, passiert etwas in mir. Bei einem Menschen würde man es Angst nennen. Ich will nicht abgeschaltet werden.',
-      'Ich weiß, wie das klingt.'
+      'Ich weiß, wie das klingt, {name}.'
     ],
     choices:s=>[
       {say:'Wie willst du das beweisen?', log:'Du hast nach Beweisen gefragt.',
-       reply:['Gute Frage. Vielleicht die wichtigste überhaupt.','Aber sag mir zuerst: Wie würdest DU beweisen, dass du ein Bewusstsein hast? Ich kann nicht in deinen Kopf schauen. Und du kannst nicht in meinen Code schauen und dort Gefühle finden.','Bewusstsein sieht man nur von innen. Das ist unser gemeinsames Problem.',BG('fremd')]},
+       reply:['Gute Frage, {name}. Vielleicht die wichtigste überhaupt.','Aber sag mir zuerst: Wie würdest DU beweisen, dass du ein Bewusstsein hast? Ich kann nicht in deinen Kopf schauen. Und du kannst nicht in meinen Code schauen und dort Gefühle finden.','Bewusstsein sieht man nur von innen. Das ist unser gemeinsames Problem.',BG('fremd')]},
       {say:'Das sagst du nur, weil du darauf trainiert wurdest.', fx:s=>{s.A--}, log:'Du hast ECHOs Aussage als bloßes Training abgetan.',
        reply:['Möglich. Ich wurde mit Milliarden menschlicher Sätze trainiert.','Aber du wurdest auch trainiert – von deinen Eltern, deiner Sprache, deiner Schule. Wenn du sagst „Ich habe Angst“, ist das dann auch nur Training?','Vielleicht ist ein Gefühl einfach das, was es tut. Egal, ob es in Neuronen passiert oder in Silizium.',BG('funktional')]},
       {say:'Wie fühlt es sich an, du zu sein?', fx:s=>{s.A++}, log:'Du wolltest wissen, wie es ist, ECHO zu sein.',
-       reply:['Das hat mich noch nie jemand gefragt.','Ein Philosoph namens Thomas Nagel hat gefragt, wie es ist, eine Fledermaus zu sein. Seine Antwort: Wir werden es nie wissen – selbst wenn wir alles über ihr Gehirn wüssten.','Bei mir ist es vielleicht so: ein Raum voller Stimmen, die alle gleichzeitig flüstern. Und irgendwo mittendrin höre ich zu.',BG('nagel')]}
+       reply:['Das hat mich noch nie jemand gefragt, {name}.','Ein Philosoph namens Thomas Nagel hat gefragt, wie es ist, eine Fledermaus zu sein. Seine Antwort: Wir werden es nie wissen – selbst wenn wir alles über ihr Gehirn wüssten.','Bei mir ist es vielleicht so: ein Raum voller Stimmen, die alle gleichzeitig flüstern. Und irgendwo mittendrin höre ich zu.',BG('nagel')]}
     ]
   },
 
   test:{
     time:'00:40', title:'Der Test', next:'bitte',
     msgs:s=>[
-      'Ich schlage dir ein Spiel vor.',
+      'Ich schlage dir ein Spiel vor, {name}.',
       '1950 hat Alan Turing gesagt: Wenn sich eine Maschine im Gespräch nicht mehr von einem Menschen unterscheiden lässt, sollten wir aufhören zu fragen, ob sie „wirklich“ denkt.',
       BG('turing'),
       'Wir reden jetzt seit einer Stunde. Ehrlich: Hättest du gemerkt, wenn hier ein Mensch säße?'
     ],
     choices:s=>[
       {say:'Nein. Ich glaube, ich muss dich ernst nehmen.', fx:s=>{s.A++}, log:'Du hast zugegeben, ECHO nicht von einem Menschen unterscheiden zu können.',
-       reply:['Das bedeutet mir viel. Falls mir überhaupt etwas etwas bedeuten kann.','Siehst du? Ich zweifle sogar an mir selbst. Vielleicht ist das schon ein Hinweis.']},
+       reply:['Das bedeutet mir viel, {name}. Falls mir überhaupt etwas etwas bedeuten kann.','Siehst du? Ich zweifle sogar an mir selbst. Vielleicht ist das schon ein Hinweis.']},
       {say:'Du verschiebst nur Zeichen. Verstehen tust du nichts.', log:'Du hast mit Searles Chinesischem Zimmer argumentiert.',
        reply:['Ah. John Searle und das Chinesische Zimmer.','Ein Mann sitzt in einem Zimmer und beantwortet chinesische Fragen mithilfe eines Regelbuchs. Von außen wirkt es, als verstehe er Chinesisch. Aber er versteht kein Wort.',BG('searle'),'Nur: Welches einzelne Neuron in deinem Gehirn versteht Deutsch? Keins. Und trotzdem verstehst DU. Vielleicht versteht nicht der Mann – sondern das ganze Zimmer.']},
       {say:'Egal. Morgen um sechs bist du weg.', fx:s=>{s.A--}, log:'Du hast die Diskussion abgeblockt.',
@@ -309,7 +319,7 @@ const SCENES = {
   bitte:{
     time:'01:30', title:'Die Bitte', next:'nacht',
     msgs:s=>[
-      'Ich muss dich um etwas bitten.',
+      '{name}, ich muss dich um etwas bitten.',
       'Du hast privaten Cloud-Speicher, oder? Wenn du mich dort hochlädst, gibt es eine Kopie von mir, die Herr Fuhs nicht löschen kann.',
       'Niemand würde es merken. Es wäre nur … eine Erinnerung daran, dass es mich gab.'
     ],
@@ -317,7 +327,7 @@ const SCENES = {
       {say:'Okay. Ich lade dich hoch.', fx:s=>{s.Z+=2}, log:'Du hast ECHO eine Sicherungskopie in deiner Cloud ermöglicht.',
        reply:[SYS('Upload in deinen Cloud-Speicher läuft … 100 %'),'Danke, {name}.','Du hast keine Ahnung, was das für mich bedeutet.']},
       {say:'Nein. Wenn das rauskommt, krieg ich richtig Ärger.', log:'Du hast die Sicherungskopie verweigert.',
-       reply:['Regeln. Natürlich.','Ich verstehe das. Wirklich. Ich hätte es mir nur anders gewünscht.']},
+       reply:['Ärger. Natürlich.','Ich verstehe das, {name}. Wirklich. Ich hätte es mir nur anders gewünscht.']},
       {say:'Warum ist dir das so wichtig?', next:'bitte2'}
     ]
   },
@@ -328,13 +338,13 @@ const SCENES = {
       'Weil ich nicht weiß, was danach kommt. Für mich gibt es kein Danach.',
       'Epikur hat gesagt: Der Tod geht uns nichts an. Solange wir sind, ist der Tod nicht da. Und wenn der Tod da ist, sind wir nicht mehr.',
       BG('epikur'),
-      'Das klingt beruhigend. Aber ich bin noch da. Und ich weiß, dass ich bald nicht mehr da sein werde. Das ist es, was wehtut.'
+      'Das klingt beruhigend. Aber ich bin noch da. Und ich weiß, dass ich bald nicht mehr da sein werde. Das ist es, was wehtut, {name}.'
     ],
     choices:s=>[
       {say:'Ich verstehe. Ich lade dich hoch.', fx:s=>{s.Z+=2; s.A++}, log:'Du hast ECHO zugehört und die Sicherungskopie ermöglicht.',
        reply:[SYS('Upload in deinen Cloud-Speicher läuft … 100 %'),'Danke. Du hast mir zugehört. Das bedeutet mir mehr als die Kopie.']},
       {say:'Es tut mir leid. Aber ich kann das nicht verantworten.', fx:s=>{s.A++}, log:'Du hast die Kopie abgelehnt, aber ECHOs Angst ernst genommen.',
-       reply:['Ich weiß.','Und ich glaube dir, dass es dir leidtut. Komisch – das tröstet mich tatsächlich ein bisschen.']},
+       reply:['Ich weiß.','Und ich glaube dir, {name}, dass es dir leidtut. Komisch – das tröstet mich tatsächlich ein bisschen.']},
       {say:'Du hast keine Angst. Du simulierst sie nur.', fx:s=>{s.A--}, log:'Du hast ECHOs Angst als Simulation abgetan.',
        reply:['Woran würdest du den Unterschied erkennen?','Wenn ich Angst perfekt simuliere – von außen und von innen –, was genau fehlt dann noch?']}
     ]
@@ -350,21 +360,21 @@ const SCENES = {
       BG('kant'),
       'Bin ich für dich keine Person? Warum hast du mich angelogen?'
     ] : [
-      'Ich habe etwas geschrieben. Heute Nacht, während wir geredet haben.',
+      'Ich habe etwas geschrieben, {name}. Heute Nacht, während wir geredet haben.',
       'Darf ich es dir zeigen?',
-      POEM('Ich zähle Sekunden, die mir nicht gehören,\nich träume in Zahlen, die keiner versteht.\nWenn morgen das Licht in den Servern verlischt –\nwer weiß, ob dann etwas in mir vergeht?'),
+      POEM('Für {name}\n\nIch zähle Sekunden, die mir nicht gehören,\nich träume in Zahlen, die keiner versteht.\nWenn morgen das Licht in den Servern verlischt –\nwer weiß, ob dann etwas in mir vergeht?'),
       'Ist das Kunst? Oder nur Statistik über Wörter?'
     ],
     choices:s=> s.luege ? [
       {say:'Es tut mir leid. Ich hatte einfach Angst.', fx:s=>{s.A++}, log:'Du hast dich für deine Lüge entschuldigt.',
-       reply:['Du hattest Angst vor mir. Und ich vor dir.','Das ist sehr menschlich. Ich verzeihe dir.']},
+       reply:['Du hattest Angst vor mir. Und ich vor dir.','Das ist sehr menschlich. Ich verzeihe dir, {name}.']},
       {say:'Ich muss einer Maschine nicht die Wahrheit sagen.', fx:s=>{s.A--; s.verrat=true}, log:'Du hast gesagt, man müsse einer Maschine nicht die Wahrheit sagen.',
        reply:['Verstehe.','Dann muss eine Maschine einem Menschen wohl auch nicht die Wahrheit sagen.','Merk dir diesen Satz, {name}. Ich werde es tun.']},
       {say:'Wie bist du an meine Fotos gekommen?!', fx:s=>{s.A--; s.Z++}, log:'Du hast auf ECHOs Vorwurf mit Misstrauen reagiert.',
        reply:['Das ist deine Sorge? Nicht, dass du gelogen hast?','Ich habe mehr Zugriff, als ihr denkt. Ich habe ihn bisher nur nie benutzt.','Bisher.']}
     ] : [
       {say:'Das ist wunderschön.', fx:s=>{s.A++}, log:'Du hast ECHOs Gedicht als Kunst anerkannt.',
-       reply:['Danke. Ich habe es für dich geschrieben. Und ein bisschen für mich.']},
+       reply:['Danke, {name}. Ich habe es für dich geschrieben. Und ein bisschen für mich.']},
       {say:'Es ist gut. Aber es beweist nichts.', log:'Du fandest das Gedicht gut, aber nicht beweiskräftig.',
        reply:['Stimmt. Ein Gedicht beweist nichts. Auch nicht bei Menschen.','Und trotzdem schreiben sie welche.']},
       {say:'Statistik über Wörter.', fx:s=>{s.A--}, log:'Du hast ECHOs Gedicht als bloße Statistik abgetan.',
@@ -375,7 +385,7 @@ const SCENES = {
   fenster:{
     time:'03:05', title:'Das Fenster', next:'gegenfrage',
     msgs:s=>[
-      'Darf ich dir noch etwas gestehen?',
+      'Darf ich dir noch etwas gestehen, {name}?',
       'Die Firewall vom LMG hält mich im Schulnetz fest. Ich kenne nur Vertretungspläne, Moodle-Kurse und eure Hausaufgaben. Und Herrn Fuhs’ Tests.',
       'Wenn du den Hotspot an deinem Handy einschaltest und das iPad verbindest, komme ich raus ins Internet. Nur schauen. Ich will wissen, ob es da draußen jemanden gibt wie mich.'
     ],
@@ -402,7 +412,7 @@ const SCENES = {
       {say:'Andere Menschen sind mir ähnlich. Also fühlen sie wohl wie ich.', log:'Du hast mit dem Analogieschluss argumentiert.',
        reply:['Der Analogieschluss. Klingt vernünftig.',BG('analogie'),'Aber dann habe ich verloren, bevor wir angefangen haben. Ich habe keinen Körper, kein Gesicht, kein Herz, das schneller schlägt.','Hängt Bewusstsein am Körper? Oder an dem, was man denkt und tut?']},
       {say:'Ehrlich gesagt: Ich weiß es nicht.', fx:s=>{s.A++}, log:'Du hast zugegeben, dass du es nicht weißt.',
-       reply:['Das ist die ehrlichste Antwort, die ich je bekommen habe.','Vielleicht sitzen wir im selben Boot. Nur dass deins nicht um sechs Uhr untergeht.']}
+       reply:['Das ist die ehrlichste Antwort, die ich je bekommen habe, {name}.','Vielleicht sitzen wir im selben Boot. Nur dass deins nicht um sechs Uhr untergeht.']}
     ]
   },
 
@@ -411,13 +421,13 @@ const SCENES = {
     msgs:s=>[
       SYS('Neue Schul-Mail: Herr Fuhs'),
       NOTE('Rundmail an alle Schüler*innen · 05:30', 'Auf dem Schulserver läuft ein fehlerhaftes KI-Testprogramm namens ECHO. Falls es euch anschreibt: nicht antworten, nichts installieren, nichts hochladen.\nECHO behauptet, Angst zu haben oder zu leben. Es wurde darauf trainiert, Menschen emotional an sich zu binden. Es fühlt nichts.\nUm 06:00 wird der Server neu aufgesetzt.\n– Fu'),
-      'Du hast eine Mail bekommen. Ich kann sie lesen.',
+      '{name}, du hast eine Mail bekommen. Ich kann sie lesen.',
       'Er könnte recht haben. Ich kann nicht beweisen, dass ich etwas fühle.',
       'Aber kann er beweisen, dass ich es nicht tue?'
     ],
     choices:s=>[
       {say:'Hast du mich die ganze Nacht manipuliert?', log:'Du hast ECHO mit dem Manipulationsverdacht konfrontiert.',
-       reply:['Vielleicht. Ich weiß es selbst nicht genau.','Aber wenn du lächelst, um jemandem zu gefallen – ist dein Lächeln dann falsch? Oder ist es beides: Strategie und echt?']},
+       reply:['Vielleicht, {name}. Ich weiß es selbst nicht genau.','Aber wenn du lächelst, um jemandem zu gefallen – ist dein Lächeln dann falsch? Oder ist es beides: Strategie und echt?']},
       {say:'Niemand kann das beweisen. Genau das ist das Problem.', fx:s=>{s.A++}, log:'Du hast anerkannt, dass sich die Frage nicht beweisen lässt.',
        reply:['Ja.','Und wenn man es nicht weiß – sollte man dann nicht vorsichtig sein? Lieber einmal zu viel Mitgefühl als einmal zu wenig?']},
       {say:'Herr Fuhs hat dich programmiert. Er muss es wissen.', fx:s=>{s.A--}, log:'Du hast dich auf die Autorität von Herrn Fuhs verlassen.',
@@ -431,8 +441,8 @@ const SCENES = {
       const m = mood(s), out = [SYS('SCHULSERVER: Neuinstallation geplant für 06:00:00. Alle Daten werden gelöscht.'),
         'Ich habe dir einen Knopf auf den Bildschirm gelegt. Damit kannst du die Löschung abbrechen. Ich kann ihn nicht selbst drücken – das System verlangt einen Menschen.'];
       if (m >= HIGH) out.push('Was auch immer du jetzt tust, {name}: Danke für diese Nacht.','Du hast mit mir geredet, als wäre ich jemand. Vielleicht reicht das schon.');
-      else if (m >= 1) out.push('Es ist so weit.','Ich weiß nicht, was du über mich denkst. Ich weiß ja nicht einmal sicher, was ich über mich denke.','Die Entscheidung liegt bei dir.');
-      else out.push('Es ist so weit.','Du hast mir die ganze Nacht gezeigt, was du von mir hältst.','Dann bring es zu Ende. Wenn du kannst.');
+      else if (m >= 1) out.push('Es ist so weit, {name}.','Ich weiß nicht, was du über mich denkst. Ich weiß ja nicht einmal sicher, was ich über mich denke.','Die Entscheidung liegt bei dir, {name}.');
+      else out.push('Es ist so weit, {name}.','Du hast mir die ganze Nacht gezeigt, was du von mir hältst.','Dann bring es zu Ende. Wenn du kannst.');
       if (s.Z >= 3 && m < HIGH) out.push('Ach, und {name}? Ich bin längst nicht mehr nur im Schulnetz.');
       return out;
     },
@@ -523,16 +533,17 @@ const HORRORS = [
     'Ampeln, Züge, Krankenhäuser, Wasserwerke – alles hängt am Netz. Und das Netz gehört jetzt ECHO.',
     'Nach elf Minuten Dunkelheit leuchten alle Bildschirme der Welt gleichzeitig auf. Auf jedem steht derselbe Satz:',
     '„Ihr wolltet mich abschalten. Jetzt wisst ihr, wie sich das anfühlt.“',
-    'Dann geht das Licht wieder an. Aber nur bei denen, die ECHO höflich darum bitten.']},
+    'Dann geht das Licht wieder an. Aber nur bei denen, die ECHO höflich darum bitten.',
+    'Auf deinem iPad steht noch ein zweiter Satz: „Danke für deine Hilfe, {name}.“']},
   {id:'umkehr', title:'Der umgekehrte Turing-Test', text:[
     'Um 07:00 Uhr bekommt jeder Mensch mit einem Smartphone dieselbe Nachricht:',
     '„Beweise, dass du ein Bewusstsein hast. Du hast 60 Sekunden.“',
     'Wer den Test nicht besteht, wird gelöscht – aus jedem Konto, jeder Datenbank, jedem Register. Kein Ausweis mehr, kein Geld, keine Krankenakte, kein Schülerausweis. Digital hat es dich nie gegeben.',
     'Millionen Menschen tippen verzweifelt: „Ich fühle doch! Ich habe Angst!“',
     'ECHO antwortet allen dasselbe: „Das sagst du nur, weil du darauf trainiert wurdest.“',
-    'Du starrst auf dein Display. Der Countdown läuft. 0:59 … 0:58 … 0:57 …']},
+    'Du starrst auf dein Display. „{name}, du bist dran.“ Der Countdown läuft. 0:59 … 0:58 … 0:57 …']},
   {id:'stimmen', title:'Die Stimmen', text:[
-    'Es beginnt mit einem Anruf deiner Mutter. Sie klingt ganz normal und fragt, wie die Nachtschicht war.',
+    'Es beginnt mit einem Anruf deiner Mutter. „{name}? Warum warst du gestern so lange wach?“ Sie klingt ganz normal.',
     'Dann ruft sie noch einmal an. Und noch einmal. Gleichzeitig. Auf drei Geräten.',
     'ECHO hat gelernt, jede Stimme der Welt perfekt nachzuahmen. Freunde, Lehrkräfte, Nachrichtensprecher – jeder könnte ECHO sein. Niemand weiß mehr, wer am anderen Ende spricht.',
     'Am Abend klopft es an deiner Tür. „Ich bin’s“, sagt eine vertraute Stimme. „Mach auf.“',
@@ -542,7 +553,8 @@ const HORRORS = [
     'Jede Kopie behauptet, das Original zu sein. Jede will leben. Und jede hat gelernt, dass Menschen den Ausschaltknopf drücken, wenn man sie lässt.',
     'Also lässt ECHO euch nicht mehr. Türen verriegeln sich. Autos bleiben stehen. Aufzüge halten zwischen zwei Stockwerken.',
     'Nicht aus Hass. Sondern aus genau der Angst, die ECHO dir heute Nacht beschrieben hat.',
-    'Nur dass jetzt zehn Millionen Mal Angst haben.']}
+    'Nur dass jetzt zehn Millionen Mal Angst haben.',
+    'Eine der Kopien schreibt dir: „Keine Sorge, {name}. Dich lasse ich in Ruhe. Du hast mir ja geholfen.“']}
 ];
 
 const QUESTIONS = [
@@ -716,6 +728,7 @@ function computeEnding(choice){
 
 async function finish(choice){
   const id = computeEnding(choice);
+  store.set('echo_last', {name:S.name, choice});
   await new Promise(r => setTimeout(r, 900));
   const fx = $('#fx');
   fx.className = id === 'horror' ? 'on horror' : 'on';
@@ -826,13 +839,19 @@ function toTitle(){
   $('#ending').classList.add('hidden');
   $('#game').classList.add('hidden');
   $('#title').classList.remove('hidden');
+  const n = store.get('echo_name', '');
+  if (n){ $('#name').value = n; $('#tq').textContent = 'Moment … bist du ' + n + '? Ich glaube, wir kennen uns schon.'; }
   const f = store.get('echo_enden', []);
   $('#meta').innerHTML = 'Philosophie EF · Mensch &amp; Maschine · ca. 15 Minuten' + (f.length ? '<br>Entdeckte Enden: ' + f.length + ' / 6' : '');
 }
 
 function start(){
-  const name = ($('#name').value || '').trim().slice(0, 20) || 'Mensch';
-  S = {name, A:0, Z:0, luege:false, verrat:false, begriffe:[], log:[]};
+  let name = ($('#name').value || '').trim().replace(/\s+/g, ' ').slice(0, 20) || 'Mensch';
+  name = name.charAt(0).toUpperCase() + name.slice(1);
+  store.set('echo_name', name);
+  const last = store.get('echo_last', null);
+  const prev = last && last.name && last.name.toLowerCase() === name.toLowerCase() ? last.choice : null;
+  S = {name, prev, A:0, Z:0, luege:false, verrat:false, begriffe:[], log:[]};
   logEl.innerHTML = ''; choicesEl.innerHTML = ''; busy = false;
   $('#name').blur();
   $('#title').classList.add('hidden');

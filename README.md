@@ -9,4 +9,5 @@ Eine KI ist aus dem Serverraum vom LMG ausgebrochen und schreibt dich nachts auf
 - 6 Enden, von „ECHO bedankt sich und bleibt gutartig“ bis zu zufälligen Horror-Szenarien
 - Eingebaute Begriffe: Turing-Test, Chinesisches Zimmer, Nagel, Descartes, Analogieschluss, Funktionalismus, Problem des Fremdpsychischen, Epikur, Kant
 - Am Ende: Auswertung, Spur der Entscheidungen und Reflexionsfragen fürs Unterrichtsgespräch
+- ECHO fragt nach dem Namen und spricht die Spieler*innen immer wieder direkt an. Der Name wird nur lokal auf dem Gerät gespeichert; beim nächsten Spiel erkennt ECHO die Person wieder und erinnert sich an die letzte Entscheidung
 - Die Antwortoptionen sind mit A/B/C markiert, damit man im Plenum vergleichen kann
