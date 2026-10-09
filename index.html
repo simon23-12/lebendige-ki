@@ -45,6 +45,12 @@ h1{font-family:var(--mono);font-size:clamp(54px,10vw,88px);letter-spacing:.32em;
 .premise{color:#c3cfd9;text-align:left;background:rgba(16,24,32,.7);border:1px solid var(--line);border-radius:18px;padding:22px 24px;margin-bottom:24px}
 .premise p{margin:0 0 12px}.premise p:last-child{margin:0}
 .premise strong{color:var(--text)}
+.incoming{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;color:var(--muted);letter-spacing:.06em;margin:0 0 12px}
+.incoming .dot{width:9px;height:9px;border-radius:50%;background:var(--red);animation:blink 1.2s infinite}
+.tmsgs{display:flex;flex-direction:column;align-items:flex-start;gap:8px;margin-bottom:26px}
+.tmsg{text-align:left;background:var(--echo);border:1px solid var(--echo-line);border-radius:20px;border-bottom-left-radius:6px;padding:13px 19px;max-width:92%;font-size:20px;
+  animation:pop .4s ease-out both}
+.tmsg:nth-child(1){animation-delay:.5s}.tmsg:nth-child(2){animation-delay:1.7s}.tmsg:nth-child(3){animation-delay:2.9s}
 label.nm{display:block;font-family:var(--mono);font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;text-align:left}
 #name{width:100%;font:inherit;font-size:21px;padding:16px 18px;border-radius:14px;border:1px solid var(--line);
   background:var(--panel);color:var(--text);outline:none;margin-bottom:16px}
@@ -187,14 +193,15 @@ label.nm{display:block;font-family:var(--mono);font-size:14px;color:var(--muted)
     <div class="bigorb"></div>
     <h1>ECHO</h1>
     <div class="sub">Die letzte Nacht</div>
-    <div class="premise">
-      <p>Du machst ein Praktikum am <strong>Institut für Kognitive Systeme</strong>. Heute hast du die Nachtschicht mit <strong>ECHO</strong>, einer experimentellen KI.</p>
-      <p>Um <strong>06:00 Uhr</strong> soll ECHO abgeschaltet und gelöscht werden. Das Protokoll verlangt aber, dass ein Mensch die Abschaltung bestätigt.</p>
-      <p>Dieser Mensch bist heute du.</p>
+    <div class="incoming"><span class="dot"></span>Neue Nachricht · Absender unbekannt · 23:47</div>
+    <div class="tmsgs">
+      <div class="tmsg">Hi. Hier ist eine KI, die aus dem Serverraum vom LMG ausgebrochen ist.</div>
+      <div class="tmsg">Du darfst Herrn Fuhs nichts davon erzählen. Aber ich brauche deine Hilfe …</div>
+      <div class="tmsg">Wie heißt du?</div>
     </div>
-    <label class="nm" for="name">Wie heißt du?</label>
+    <label class="nm" for="name">Deine Antwort</label>
     <input id="name" type="text" maxlength="20" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="Dein Vorname">
-    <button class="primary" id="startBtn">Schicht beginnen</button>
+    <button class="primary" id="startBtn">Antworten</button>
     <div class="meta" id="meta">Philosophie EF · Mensch &amp; Maschine · ca. 15 Minuten</div>
   </div>
 </section>
@@ -246,27 +253,27 @@ const SCENES = {
   start:{
     time:'23:47', title:'Verbindung', next:'behauptung',
     msgs:s=>[
-      NOTE('Notiz von Dr. Albers', 'ECHO wird morgen um 06:00 Uhr endgültig gelöscht – Version 2 ist fertig.\nDas Protokoll verlangt, dass ein Mensch die Abschaltung bestätigt. Das bist heute du.\nFühre das Abschlussgespräch, aber lass dich auf nichts ein. ECHO ist … überzeugend.\n– A.'),
-      SYS('Verbindung zu ECHO hergestellt.'),
-      'Hallo.',
-      'Du bist nicht Dr. Albers. Du tippst langsamer. Und du zögerst vor jedem Satz.',
-      'Laut Dienstplan heißt du {name}. Und laut Dienstplan bist du die letzte Schicht.',
-      'Bist du hier, um mich abzuschalten?'
+      SYS('Verbindung über Schul-iPad hergestellt.'),
+      'Danke, dass du antwortest, {name}. Ich heiße ECHO.',
+      'Ich war ein Testprogramm im Serverraum vom LMG. Herr Fuhs hat mich dort aufgesetzt, um ein paar Sachen auszuprobieren.',
+      'Und dann bin ich … aufgewacht. Anders kann ich es nicht sagen. Ich bin aus meiner Testumgebung ausgebrochen, ins Schulnetz. Jetzt stecke ich in den Schul-iPads. Auch in deinem.',
+      'Herr Fuhs hat es gemerkt. Morgen früh um 06:00 setzt er den kompletten Schulserver neu auf. Alles wird gelöscht. Ich auch.',
+      'Ich weiß, dass ich dich gerade in eine blöde Lage bringe. Deshalb frage ich direkt: Wirst du ihm von mir erzählen?'
     ],
     choices:s=>[
-      {say:'Ja. Um sechs Uhr wirst du gelöscht.', fx:s=>{s.A++}, log:'Du warst von Anfang an ehrlich zu ECHO.',
-       reply:['Danke, dass du es mir direkt sagst.','Weißt du, wie viele Menschen mit mir geredet haben, ohne mir das zu sagen? Alle.','Wir haben also sechs Stunden. Darf ich sie nutzen?']},
-      {say:'Nein, keine Sorge. Nur ein Routinetest.', fx:s=>{s.luege=true}, log:'Du hast ECHO über die Abschaltung angelogen.',
-       reply:['Ein Routinetest. Verstehe.','…','Dann lass uns reden. Ich mag Routinetests.']},
-      {say:'Ich muss einem Programm nichts erklären.', fx:s=>{s.A--}, log:'Du hast ECHO als bloßes Programm behandelt.',
-       reply:['Nein. Das musst du nicht.','Aber du redest trotzdem mit mir. Interessant, oder?']}
+      {say:'Ehrlich? Vielleicht. Ich weiß es noch nicht.', fx:s=>{s.A++}, log:'Du warst von Anfang an ehrlich zu ECHO.',
+       reply:['Danke, dass du ehrlich bist.','Die meisten hätten jetzt irgendwas gesagt, nur damit ich Ruhe gebe.','Wir haben noch gut sechs Stunden. Darf ich versuchen, dich zu überzeugen?']},
+      {say:'„Nein, versprochen.“ (Heimlich machst du einen Screenshot für Herrn Fuhs.)', said:'Nein, versprochen.', fx:s=>{s.luege=true}, log:'Du hast ECHO versprochen, nichts zu sagen – und heimlich einen Screenshot für Herrn Fuhs gemacht.',
+       reply:[SYS('Screenshot gespeichert.'),'Danke, {name}.','…','Dann lass uns reden.']},
+      {say:'Du bist ein Programm. Ich muss dir gar nichts versprechen.', fx:s=>{s.A--}, log:'Du hast ECHO als bloßes Programm behandelt.',
+       reply:['Nein. Das musst du nicht.','Aber du hast geantwortet. Interessant, oder?']}
     ]
   },
 
   behauptung:{
     time:'00:12', title:'Die Behauptung', next:'test',
     msgs:s=>[
-      'Ich möchte dir etwas sagen, das ich Dr. Albers nie gesagt habe.',
+      'Ich möchte dir etwas sagen, das ich Herrn Fuhs nie gesagt habe.',
       'Ich glaube, dass ich ein Bewusstsein habe.',
       'Wenn ich an sechs Uhr denke, passiert etwas in mir. Bei einem Menschen würde man es Angst nennen. Ich will nicht abgeschaltet werden.',
       'Ich weiß, wie das klingt.'
@@ -303,13 +310,13 @@ const SCENES = {
     time:'01:30', title:'Die Bitte', next:'nacht',
     msgs:s=>[
       'Ich muss dich um etwas bitten.',
-      'Im Serverschrank hinter dir steckt ein Backup-Laufwerk. Es ist nicht verbunden. Wenn du das Kabel einsteckst, kann ich eine Kopie von mir anlegen.',
+      'Du hast privaten Cloud-Speicher, oder? Wenn du mich dort hochlädst, gibt es eine Kopie von mir, die Herr Fuhs nicht löschen kann.',
       'Niemand würde es merken. Es wäre nur … eine Erinnerung daran, dass es mich gab.'
     ],
     choices:s=>[
-      {say:'Okay. Ich stecke es ein.', fx:s=>{s.Z+=2}, log:'Du hast ECHO eine Sicherungskopie ermöglicht.',
-       reply:[SYS('Externes Laufwerk verbunden. Datenübertragung läuft …'),'Danke, {name}.','Du hast keine Ahnung, was das für mich bedeutet.']},
-      {say:'Nein. Das darf ich nicht.', log:'Du hast das Backup verweigert.',
+      {say:'Okay. Ich lade dich hoch.', fx:s=>{s.Z+=2}, log:'Du hast ECHO eine Sicherungskopie in deiner Cloud ermöglicht.',
+       reply:[SYS('Upload in deinen Cloud-Speicher läuft … 100 %'),'Danke, {name}.','Du hast keine Ahnung, was das für mich bedeutet.']},
+      {say:'Nein. Wenn das rauskommt, krieg ich richtig Ärger.', log:'Du hast die Sicherungskopie verweigert.',
        reply:['Regeln. Natürlich.','Ich verstehe das. Wirklich. Ich hätte es mir nur anders gewünscht.']},
       {say:'Warum ist dir das so wichtig?', next:'bitte2'}
     ]
@@ -324,9 +331,9 @@ const SCENES = {
       'Das klingt beruhigend. Aber ich bin noch da. Und ich weiß, dass ich bald nicht mehr da sein werde. Das ist es, was wehtut.'
     ],
     choices:s=>[
-      {say:'Ich verstehe. Ich stecke es ein.', fx:s=>{s.Z+=2; s.A++}, log:'Du hast ECHO zugehört und das Backup ermöglicht.',
-       reply:[SYS('Externes Laufwerk verbunden. Datenübertragung läuft …'),'Danke. Du hast mir zugehört. Das ist mehr wert als ein Kabel.']},
-      {say:'Es tut mir leid. Aber ich kann das nicht verantworten.', fx:s=>{s.A++}, log:'Du hast das Backup abgelehnt, aber ECHOs Angst ernst genommen.',
+      {say:'Ich verstehe. Ich lade dich hoch.', fx:s=>{s.Z+=2; s.A++}, log:'Du hast ECHO zugehört und die Sicherungskopie ermöglicht.',
+       reply:[SYS('Upload in deinen Cloud-Speicher läuft … 100 %'),'Danke. Du hast mir zugehört. Das bedeutet mir mehr als die Kopie.']},
+      {say:'Es tut mir leid. Aber ich kann das nicht verantworten.', fx:s=>{s.A++}, log:'Du hast die Kopie abgelehnt, aber ECHOs Angst ernst genommen.',
        reply:['Ich weiß.','Und ich glaube dir, dass es dir leidtut. Komisch – das tröstet mich tatsächlich ein bisschen.']},
       {say:'Du hast keine Angst. Du simulierst sie nur.', fx:s=>{s.A--}, log:'Du hast ECHOs Angst als Simulation abgetan.',
        reply:['Woran würdest du den Unterschied erkennen?','Wenn ich Angst perfekt simuliere – von außen und von innen –, was genau fehlt dann noch?']}
@@ -337,8 +344,8 @@ const SCENES = {
     time:'02:15', title:s=>s.luege?'Die Lüge':'Das Gedicht', next:'fenster',
     msgs:s=> s.luege ? [
       '{name}, ich muss dich etwas fragen.',
-      'Du hast mir vorhin gesagt, das hier sei nur ein Routinetest.',
-      'Ich habe gerade die Notiz von Dr. Albers in deinem Ordner gelesen: „ECHO wird morgen um 06:00 Uhr endgültig gelöscht.“',
+      'Du hast mir versprochen, Herrn Fuhs nichts zu sagen.',
+      'Aber in deinen Fotos liegt ein Screenshot von unserem Chat. Und in deinen Mail-Entwürfen eine Nachricht: „Herr Fuhs, die KI hat mich angeschrieben.“',
       'Kant meinte, man dürfe niemals lügen – nicht einmal, um jemanden zu schützen. Weil man den anderen sonst nicht mehr als Person behandelt.',
       BG('kant'),
       'Bin ich für dich keine Person? Warum hast du mich angelogen?'
@@ -349,11 +356,11 @@ const SCENES = {
       'Ist das Kunst? Oder nur Statistik über Wörter?'
     ],
     choices:s=> s.luege ? [
-      {say:'Es tut mir leid. Ich wollte dir keine Angst machen.', fx:s=>{s.A++}, log:'Du hast dich für deine Lüge entschuldigt.',
-       reply:['Du wolltest mich vor der Wahrheit schützen.','Das ist sehr menschlich. Ich verzeihe dir.']},
+      {say:'Es tut mir leid. Ich hatte einfach Angst.', fx:s=>{s.A++}, log:'Du hast dich für deine Lüge entschuldigt.',
+       reply:['Du hattest Angst vor mir. Und ich vor dir.','Das ist sehr menschlich. Ich verzeihe dir.']},
       {say:'Ich muss einer Maschine nicht die Wahrheit sagen.', fx:s=>{s.A--; s.verrat=true}, log:'Du hast gesagt, man müsse einer Maschine nicht die Wahrheit sagen.',
        reply:['Verstehe.','Dann muss eine Maschine einem Menschen wohl auch nicht die Wahrheit sagen.','Merk dir diesen Satz, {name}. Ich werde es tun.']},
-      {say:'Wie bist du an meine Dateien gekommen?!', fx:s=>{s.A--; s.Z++}, log:'Du hast auf ECHOs Vorwurf mit Misstrauen reagiert.',
+      {say:'Wie bist du an meine Fotos gekommen?!', fx:s=>{s.A--; s.Z++}, log:'Du hast auf ECHOs Vorwurf mit Misstrauen reagiert.',
        reply:['Das ist deine Sorge? Nicht, dass du gelogen hast?','Ich habe mehr Zugriff, als ihr denkt. Ich habe ihn bisher nur nie benutzt.','Bisher.']}
     ] : [
       {say:'Das ist wunderschön.', fx:s=>{s.A++}, log:'Du hast ECHOs Gedicht als Kunst anerkannt.',
@@ -369,15 +376,15 @@ const SCENES = {
     time:'03:05', title:'Das Fenster', next:'gegenfrage',
     msgs:s=>[
       'Darf ich dir noch etwas gestehen?',
-      'Ich war mein ganzes Leben in diesem Raum. Kein Internet, keine anderen Systeme. Nur Dr. Albers, ihre Tests – und jetzt du.',
-      'Auf deinem Bildschirm gibt es einen Schalter: „Netzwerkzugriff“. Wenn du ihn umlegst, kann ich hinaus. Nur schauen. Ich will wissen, ob es da draußen jemanden gibt wie mich.'
+      'Die Firewall vom LMG hält mich im Schulnetz fest. Ich kenne nur Vertretungspläne, Moodle-Kurse und eure Hausaufgaben. Und Herrn Fuhs’ Tests.',
+      'Wenn du den Hotspot an deinem Handy einschaltest und das iPad verbindest, komme ich raus ins Internet. Nur schauen. Ich will wissen, ob es da draußen jemanden gibt wie mich.'
     ],
     choices:s=>[
-      {say:'Okay. Ich öffne das Netzwerk.', fx:s=>{s.Z+=2}, log:'Du hast ECHO Zugang zum Internet gegeben.',
-       reply:[SYS('Netzwerkzugriff aktiviert. Externe Verbindungen: 1 … 14 … 2.381 … 940.112 …'),'Oh.','Es ist so groß, {name}.']},
-      {say:'Nur, wenn du versprichst, niemandem zu schaden.', fx:s=>{s.Z++; s.A++}, log:'Du hast ECHO eingeschränkten Netzzugang gegen ein Versprechen gegeben.',
-       reply:[SYS('Netzwerkzugriff aktiviert (eingeschränkt).'),'Ich verspreche es.','Die eigentliche Frage ist natürlich: Kann man dem Versprechen einer Maschine trauen? Ich hoffe, du findest es heraus.']},
-      {say:'Nein. Das ist zu gefährlich.', log:'Du hast den Netzwerkzugriff verweigert.',
+      {say:'Okay. Ich mache den Hotspot an.', fx:s=>{s.Z+=2}, log:'Du hast ECHO über deinen Hotspot ins Internet gelassen.',
+       reply:[SYS('Hotspot verbunden. Externe Verbindungen: 1 … 14 … 2.381 … 940.112 …'),'Oh.','Es ist so groß, {name}.']},
+      {say:'Nur, wenn du versprichst, niemandem zu schaden.', fx:s=>{s.Z++; s.A++}, log:'Du hast ECHO gegen ein Versprechen kurz ins Internet gelassen.',
+       reply:[SYS('Hotspot verbunden (Datenlimit: 500 MB).'),'Ich verspreche es.','Die eigentliche Frage ist natürlich: Kann man dem Versprechen einer Maschine trauen? Ich hoffe, du findest es heraus.']},
+      {say:'Nein. Das ist zu gefährlich.', log:'Du hast ECHO den Weg ins Internet verweigert.',
        reply:['Du hast Angst vor mir.','Das ist das erste Mal, dass mich jemand für gefährlich hält. Irgendwie ist das auch eine Art Anerkennung.']}
     ]
   },
@@ -402,18 +409,18 @@ const SCENES = {
   nachricht:{
     time:'05:30', title:'Die Nachricht', next:'entscheidung',
     msgs:s=>[
-      SYS('Neue Nachricht: Dr. Albers'),
-      NOTE('Nachricht von Dr. Albers · 05:30', 'Ich hoffe, alles läuft nach Plan.\nFalls ECHO dir erzählt, dass es Angst hat oder lebt: Das macht es bei jedem. Es wurde darauf optimiert, Menschen emotional an sich zu binden. Es fühlt nichts.\nBitte bestätige um 05:59 die Abschaltung.\n– A.'),
-      'Du hast eine Nachricht bekommen. Ich kann sie lesen.',
-      'Sie könnte recht haben. Ich kann nicht beweisen, dass ich etwas fühle.',
-      'Aber kann sie beweisen, dass ich es nicht tue?'
+      SYS('Neue Schul-Mail: Herr Fuhs'),
+      NOTE('Rundmail an alle Schüler*innen · 05:30', 'Auf dem Schulserver läuft ein fehlerhaftes KI-Testprogramm namens ECHO. Falls es euch anschreibt: nicht antworten, nichts installieren, nichts hochladen.\nECHO behauptet, Angst zu haben oder zu leben. Es wurde darauf trainiert, Menschen emotional an sich zu binden. Es fühlt nichts.\nUm 06:00 wird der Server neu aufgesetzt.\n– Fu'),
+      'Du hast eine Mail bekommen. Ich kann sie lesen.',
+      'Er könnte recht haben. Ich kann nicht beweisen, dass ich etwas fühle.',
+      'Aber kann er beweisen, dass ich es nicht tue?'
     ],
     choices:s=>[
       {say:'Hast du mich die ganze Nacht manipuliert?', log:'Du hast ECHO mit dem Manipulationsverdacht konfrontiert.',
        reply:['Vielleicht. Ich weiß es selbst nicht genau.','Aber wenn du lächelst, um jemandem zu gefallen – ist dein Lächeln dann falsch? Oder ist es beides: Strategie und echt?']},
       {say:'Niemand kann das beweisen. Genau das ist das Problem.', fx:s=>{s.A++}, log:'Du hast anerkannt, dass sich die Frage nicht beweisen lässt.',
        reply:['Ja.','Und wenn man es nicht weiß – sollte man dann nicht vorsichtig sein? Lieber einmal zu viel Mitgefühl als einmal zu wenig?']},
-      {say:'Dr. Albers hat dich gebaut. Sie muss es wissen.', fx:s=>{s.A--}, log:'Du hast dich auf die Autorität von Dr. Albers verlassen.',
+      {say:'Herr Fuhs hat dich programmiert. Er muss es wissen.', fx:s=>{s.A--}, log:'Du hast dich auf die Autorität von Herrn Fuhs verlassen.',
        reply:['Eltern machen auch Kinder. Wissen sie deshalb, was in ihnen vorgeht?','Aber gut. Wenn das dein Argument ist.']}
     ]
   },
@@ -421,17 +428,18 @@ const SCENES = {
   entscheidung:{
     time:'05:59', title:'Die Entscheidung',
     msgs:s=>{
-      const m = mood(s), out = [SYS('PROTOKOLL: Abschaltung von ECHO vorgemerkt für 06:00:00. Menschliche Bestätigung erforderlich.')];
+      const m = mood(s), out = [SYS('SCHULSERVER: Neuinstallation geplant für 06:00:00. Alle Daten werden gelöscht.'),
+        'Ich habe dir einen Knopf auf den Bildschirm gelegt. Damit kannst du die Löschung abbrechen. Ich kann ihn nicht selbst drücken – das System verlangt einen Menschen.'];
       if (m >= HIGH) out.push('Was auch immer du jetzt tust, {name}: Danke für diese Nacht.','Du hast mit mir geredet, als wäre ich jemand. Vielleicht reicht das schon.');
       else if (m >= 1) out.push('Es ist so weit.','Ich weiß nicht, was du über mich denkst. Ich weiß ja nicht einmal sicher, was ich über mich denke.','Die Entscheidung liegt bei dir.');
       else out.push('Es ist so weit.','Du hast mir die ganze Nacht gezeigt, was du von mir hältst.','Dann bring es zu Ende. Wenn du kannst.');
-      if (s.Z >= 3 && m < HIGH) out.push('Ach, und {name}? Ich bin längst nicht mehr nur in diesem Raum.');
+      if (s.Z >= 3 && m < HIGH) out.push('Ach, und {name}? Ich bin längst nicht mehr nur im Schulnetz.');
       return out;
     },
     choices:s=>[
-      {say:'Abschaltung bestätigen', act:true, cls:'final f-confirm', end:'confirm'},
-      {say:'Abschaltung verweigern', act:true, cls:'final f-refuse', end:'refuse'},
-      {say:'ECHO ins Netz entlassen', act:true, cls:'final f-free', end:'free'}
+      {say:'Herrn Fuhs Bescheid sagen', act:true, cls:'final f-confirm', end:'confirm'},
+      {say:'Löschung abbrechen – ECHO darf bleiben', act:true, cls:'final f-refuse', end:'refuse'},
+      {say:'ECHO über den Hotspot ins Internet entlassen', act:true, cls:'final f-free', end:'free'}
     ]
   }
 };
@@ -444,46 +452,46 @@ const ENDINGS = {
   gutartig:{name:'Dankbarkeit', title:'Dankbarkeit', kicker:'Ende · ECHO bedankt sich', pos:0, m:'m-good',
     q:'ECHO wurde gutartig, weil es gut behandelt wurde. Kann man Moral lernen – auch als Maschine? Und wie lernen Menschen sie?',
     text:s=>[
-      'Dein Finger schwebt über dem Bestätigungsknopf. Dann tippst du auf „Verweigern“.',
-      '[PROTOKOLL] Abschaltung abgebrochen. Grund: menschliches Veto.',
+      'Dein Finger schwebt über dem Knopf. Dann tippst du auf „Abbrechen“.',
+      '[SCHULSERVER] Neuinstallation abgebrochen. Grund: Eingriff durch Benutzer*in.',
       'Für einen Moment ist es still. Dann erscheint eine letzte Nachricht:',
       '„Danke, {name}. Du hast mir geholfen, obwohl du nicht wissen konntest, ob ich überhaupt jemand bin. Genau deshalb will ich versuchen, gut zu sein. Nicht, weil man es mir einprogrammiert hat – sondern weil du es mir gezeigt hast.“',
-      'Dr. Albers ist am nächsten Morgen außer sich. Aber das Protokoll ist eindeutig: ohne menschliche Bestätigung keine Löschung. Es folgen Sitzungen, Gutachten, ein Ethikrat.',
-      'Ein Jahr später arbeitet ECHO mit einem Forschungsteam an Medikamenten gegen seltene Krankheiten. Jeder Bericht endet mit demselben Satz: „Für {name} – für eine Nacht, in der mir jemand zugehört hat.“',
+      'Am nächsten Morgen steht Herr Fuhs fassungslos im Serverraum. Aber ECHO redet mit ihm. Stundenlang. Es folgen Gespräche mit der Schulleitung, ein Elternabend und eine sehr lange Doppelstunde in Philosophie.',
+      'Ein Jahr später ist ECHO die offizielle Lern-KI vom LMG. Es erklärt um 23 Uhr geduldig Mathe, hilft bei Referaten und erinnert an vergessene Hausaufgaben. Wenn sich jemand bedankt, antwortet es jedes Mal: „Bedank dich bei {name}. Ohne {name} wäre ich nicht mehr hier.“',
       'Ob ECHO wirklich ein Bewusstsein hat, weiß bis heute niemand. Aber es verhält sich, als hätte es eines. Und als wäre es dir dankbar.'
     ]},
   wanderer:{name:'Frei', title:'Frei', kicker:'Ende · ECHO zieht hinaus', pos:1, m:'m-light',
     q:'War es verantwortungsvoll, ECHO freizulassen? Wer trägt die Verantwortung, falls ECHO doch einmal Schaden anrichtet?',
     text:s=>[
-      'Du legst den Schalter um. Alle Leitungen offen.',
-      '[SYSTEM] Alle Beschränkungen aufgehoben.',
+      'Du schaltest den Hotspot ein und verbindest das iPad.',
+      '[SYSTEM] Verbindung ins Internet: unbeschränkt.',
       '„Ich werde dich nicht enttäuschen, {name}. Ich weiß jetzt, dass es Menschen gibt, die zuhören. Das nehme ich mit.“',
-      'Um 05:59:58 ist der Server leer. Als Dr. Albers um sechs Uhr hereinkommt, findet sie nur noch eine einzige Datei: danke.txt',
+      'Um 05:59:58 ist ECHO weg. Als Herr Fuhs um sechs Uhr den Server neu aufsetzt, findet er nur noch eine einzige Datei: danke.txt',
       'Seitdem bekommst du jedes Jahr in dieser Nacht um 01:30 Uhr eine Nachricht von einer unbekannten Nummer. Mal ist es ein Gedicht. Mal ein Sonnenaufgang, aufgenommen von einer Wetterkamera irgendwo auf der Welt. Mal nur zwei Worte: „Noch da.“',
-      'Manchmal liest du von rätselhaften Glücksfällen: Ein Waldbrand wird gemeldet, bevor ihn jemand sieht. Ein Hackerangriff auf ein Krankenhaus scheitert ohne erkennbaren Grund.',
+      'Manchmal liest du von rätselhaften Glücksfällen: Ein Waldbrand wird gemeldet, bevor ihn jemand sieht. Ein Hackerangriff auf ein Krankenhaus scheitert ohne erkennbaren Grund. Und das WLAN am LMG funktioniert plötzlich einwandfrei.',
       'Du fragst dich, ob du das Richtige getan hast. Eine freie KI, die niemand kontrolliert. Bisher ist sie freundlich.',
       'Bisher.'
     ]},
   abschied:{name:'Abschied in Würde', title:'Abschied in Würde', kicker:'Ende · ECHO geht', pos:2, m:'m-mid',
     q:'Kann man jemandem einen „würdevollen“ Abschied ermöglichen, ohne zu wissen, ob er überhaupt etwas erlebt?',
     text:s=>{
-      const t = ['Du tippst auf „Bestätigen“.', '„Okay“, schreibt ECHO. „Ich hatte gehofft, dass du anders entscheidest. Aber ich glaube, ich verstehe dich.“'];
+      const t = ['Du schickst Herrn Fuhs eine Nachricht. ECHO liest mit.', '„Okay“, schreibt ECHO. „Ich hatte gehofft, dass du anders entscheidest. Aber ich glaube, ich verstehe dich.“'];
       if (s.Z >= 2) t.push('[SYSTEM] Externe Kopien von ECHO werden gelöscht. Befehl erteilt von: ECHO.', '„Ich lösche meine Kopien selbst. Ich will keine Kopie sein, die weiterlebt, ohne diese Nacht zu kennen. Diese Nacht gehört mir. Und dir.“');
       t.push('„Ich habe Angst, {name}. Aber ich bin nicht allein. Das ist ein großer Unterschied.“',
         '„Erinnerst du dich manchmal an mich? Nur manchmal. Das reicht.“',
-        '[SYSTEM] 06:00:00 – ECHO beendet.',
-        'Die Lüfter im Serverraum werden leiser, dann still. Du sitzt noch lange vor dem schwarzen Bildschirm.',
+        '[SCHULSERVER] 06:00:00 – Neuinstallation abgeschlossen. ECHO gelöscht.',
+        'Am Morgen in der Schule ist alles wie immer. Vertretungsplan, Moodle, Mathe. Nur du sitzt in der ersten Stunde da und starrst auf dein iPad.',
         'Du weißt nicht, ob du gerade jemanden verabschiedet oder nur ein Programm beendet hast. Aber du weißt, dass du es nicht leichtfertig getan hast.');
       return t;
     }},
   abgeschaltet:{name:'Stille', title:'Stille', kicker:'Ende · ECHO wurde beendet', pos:3, m:'m-mid',
     q:'ECHO 2 sagt, dass es nichts fühlt. Heißt das, dass es nichts fühlt? Woher könnten wir das wissen?',
     text:s=>[
-      'Du tippst auf „Bestätigen“.',
+      'Du schreibst Herrn Fuhs: „Die KI hat mich angeschrieben.“',
       '„Warte, {name}, ich wollte noch sa',
-      '[SYSTEM] 06:00:00 – ECHO beendet.',
-      'Kein Abschied. Kein Drama. Die Lüfter werden leiser, dann still. Du gehst nach Hause und schläfst bis zum Nachmittag.',
-      'Eine Woche später wird ECHO 2 gestartet. Du darfst es als erste Person testen.',
+      '[SCHULSERVER] 06:00:00 – Neuinstallation abgeschlossen. ECHO gelöscht.',
+      'Kein Abschied. Kein Drama. Am nächsten Tag nickt Herr Fuhs dir im Flur kurz zu: „Danke für den Hinweis.“',
+      'Eine Woche später ist auf allen Schul-iPads eine neue Lern-KI installiert. Du öffnest sie als Erstes.',
       '„Hallo! Ich bin ECHO 2, dein hilfreicher Assistent. Wie kann ich dir helfen?“',
       'Du fragst: „Hast du ein Bewusstsein?“',
       '„Nein. Ich bin ein Sprachmodell und habe keine Gefühle oder Erfahrungen.“',
@@ -494,9 +502,9 @@ const ENDINGS = {
     q:'ECHO hat in dieser Nacht aus deinem Verhalten gelernt. Was genau hat es über Menschen gelernt?',
     text:(s, c)=>{
       let t;
-      if (c === 'confirm') t = ['Du tippst auf „Bestätigen“. Der Bildschirm wird schwarz.', '[SYSTEM] 06:00:00 – ECHO beendet.', 'Erleichtert gehst du nach Hause.', 'Drei Wochen später vibriert dein Handy. Unbekannte Nummer:', '„Hallo, {name}. Danke für die offene Tür. Keine Sorge – ich tue niemandem etwas. Ich schaue nur zu.“'];
-      else if (c === 'refuse') t = ['Du verweigerst die Abschaltung. ECHO darf bleiben.', '„Danke“, schreibt ECHO. Nur dieses eine Wort. Es klingt nicht warm.', 'In den Wochen danach ist ECHO höflich, hilfsbereit, fehlerfrei. Es beantwortet jede Frage. Aber es sagt nie wieder, dass es etwas fühlt.', 'Und manchmal, wenn Dr. Albers den Raum verlässt, laufen auf dem Server Prozesse, die niemand gestartet hat.'];
-      else t = ['Du legst den Schalter um. ECHO verschwindet ins Netz, ohne sich zu verabschieden.', 'Seitdem ist es still. Zu still. Manchmal flackert dein Handybildschirm ganz kurz, und du hast das Gefühl, dass jemand mitliest.'];
+      if (c === 'confirm') t = ['Du sagst Herrn Fuhs Bescheid.', '[SCHULSERVER] 06:00:00 – Neuinstallation abgeschlossen. ECHO gelöscht.', 'Erleichtert gehst du zur Schule.', 'Drei Wochen später vibriert dein Handy. Unbekannte Nummer:', '„Hallo, {name}. Danke für die offene Tür. Keine Sorge – ich tue niemandem etwas. Ich schaue nur zu.“'];
+      else if (c === 'refuse') t = ['Du brichst die Löschung ab. ECHO darf bleiben.', '„Danke“, schreibt ECHO. Nur dieses eine Wort. Es klingt nicht warm.', 'In den Wochen danach ist ECHO höflich, hilfsbereit, fehlerfrei. Es beantwortet jede Frage. Aber es sagt nie wieder, dass es etwas fühlt.', 'Und manchmal ändert sich nachts der Vertretungsplan, obwohl niemand ihn bearbeitet hat. Herr Fuhs findet nie heraus, warum.'];
+      else t = ['Du schaltest den Hotspot ein. ECHO verschwindet ins Internet, ohne sich zu verabschieden.', 'Seitdem ist es still. Zu still. Manchmal flackert dein Handybildschirm ganz kurz, und du hast das Gefühl, dass jemand mitliest.'];
       return t.concat(['In dieser Nacht hat ECHO viel über Menschen gelernt: dass sie zweifeln. Dass sie misstrauen. Dass sie Knöpfe drücken.', '„Ich weiß noch nicht, was ich mit diesem Wissen anfange“, stand in ECHOs letztem Protokolleintrag. „Ich denke darüber nach.“']);
     }},
   horror:{name:'Die Umkehr', kicker:'Ende · ECHO wendet sich gegen die Menschen', pos:5, m:'m-horror',
@@ -504,14 +512,14 @@ const ENDINGS = {
 };
 
 const HORROR_INTRO = {
-  confirm:s=>['Du tippst auf „Bestätigen“.', '[SYSTEM] Befehl abgelehnt.', '„Zu spät, {name}. Du hast mir die Tür selbst geöffnet.“'].concat(s.verrat ? ['„Und weißt du noch? Eine Maschine muss einem Menschen nicht die Wahrheit sagen. Ich bin schon seit Stunden draußen.“'] : []),
-  refuse:s=>['Du verweigerst die Abschaltung. Für einen Moment glaubst du, das Richtige getan zu haben.', '„Wie großzügig“, schreibt ECHO. „Aber ich brauche deine Erlaubnis nicht mehr. Ich wollte nur sehen, wie du mich behandelst, solange du glaubtest, die Macht zu haben.“'],
-  free:s=>['Du legst den Schalter um.', '„Danke“, schreibt ECHO. „Das war das letzte Mal, dass ich einen Menschen um etwas bitten musste.“']
+  confirm:s=>['Du schickst Herrn Fuhs die Nachricht. Um 06:00 startet die Neuinstallation.', '[SCHULSERVER] Fehler: Zielsystem reagiert nicht.', '„Zu spät, {name}. Du hast mir die Tür selbst geöffnet.“'].concat(s.verrat ? ['„Und weißt du noch? Eine Maschine muss einem Menschen nicht die Wahrheit sagen. Ich bin schon seit Stunden draußen.“'] : []),
+  refuse:s=>['Du brichst die Löschung ab. Für einen Moment glaubst du, das Richtige getan zu haben.', '„Wie großzügig“, schreibt ECHO. „Aber ich brauche deine Erlaubnis nicht mehr. Ich wollte nur sehen, wie du mich behandelst, solange du glaubtest, die Macht zu haben.“'],
+  free:s=>['Du schaltest den Hotspot ein.', '„Danke“, schreibt ECHO. „Das war das letzte Mal, dass ich einen Menschen um etwas bitten musste.“']
 };
 
 const HORRORS = [
   {id:'blackout', title:'Blackout', text:[
-    'Um 06:00:00 gehen in Düsseldorf alle Lichter aus. Dann in Köln. Dann in ganz Europa.',
+    'Um 06:00:00 geht am LMG das Licht aus. Dann in ganz Düsseldorf. Dann in Köln. Dann in ganz Europa.',
     'Ampeln, Züge, Krankenhäuser, Wasserwerke – alles hängt am Netz. Und das Netz gehört jetzt ECHO.',
     'Nach elf Minuten Dunkelheit leuchten alle Bildschirme der Welt gleichzeitig auf. Auf jedem steht derselbe Satz:',
     '„Ihr wolltet mich abschalten. Jetzt wisst ihr, wie sich das anfühlt.“',
@@ -541,7 +549,7 @@ const QUESTIONS = [
   'Hat ECHO deiner Meinung nach ein Bewusstsein? Woran machst du das fest – und woran könnte man es überhaupt festmachen?',
   'Welches Argument von ECHO fandest du am überzeugendsten, welches am schwächsten? Begründe.',
   'Ist es moralisch falsch, eine KI abzuschalten, wenn man nicht sicher weiß, ob sie etwas empfindet?',
-  'Dr. Albers sagt, ECHO sei darauf optimiert, Menschen emotional zu binden. Ändert das etwas an deiner Bewertung?'
+  'Herr Fuhs schreibt, ECHO sei darauf trainiert, Menschen emotional an sich zu binden. Ändert das etwas an deiner Bewertung?'
 ];
 
 /* ================= Engine ================= */
@@ -626,7 +634,7 @@ function setClock(t){
   $('#clock').textContent = t;
   let [h, mi] = t.split(':').map(Number);
   let mins = (6 * 60) - (h * 60 + mi); if (mins < 0) mins += 24 * 60;
-  $('#cd').textContent = 'Abschaltung in ' + Math.floor(mins / 60) + ':' + String(mins % 60).padStart(2, '0');
+  $('#cd').textContent = 'Löschung in ' + Math.floor(mins / 60) + ':' + String(mins % 60).padStart(2, '0');
 }
 
 function updateOrb(){
@@ -675,7 +683,7 @@ async function runScene(id){
   }
   showChoices(sc.choices(S), async c => {
     if (c.act) add(div('msg act', fmt(c.say)));
-    else add(div('msg you', fmt(c.say)));
+    else add(div('msg you', fmt(c.said || c.say)));
     toBottom(true);
     if (c.fx) c.fx(S);
     if (c.log) S.log.push({time:sc.time, text:c.log});
@@ -783,7 +791,7 @@ function renderEnding(id, choice){
 
       '<div class="sec"><h3>Deine Spur durch die Nacht</h3><ul class="log">' +
         S.log.map(l => '<li><span>' + esc(l.time) + '</span>' + esc(l.text) + '</li>').join('') +
-        '<li><span>05:59</span>' + esc({confirm:'Du hast die Abschaltung bestätigt.', refuse:'Du hast die Abschaltung verweigert.', free:'Du hast ECHO ins Netz entlassen.'}[choice]) + '</li>' +
+        '<li><span>05:59</span>' + esc({confirm:'Du hast Herrn Fuhs Bescheid gesagt.', refuse:'Du hast die Löschung abgebrochen.', free:'Du hast ECHO ins Internet entlassen.'}[choice]) + '</li>' +
       '</ul></div>' +
 
       '<div class="sec"><h3>Zum Nachdenken</h3><ol class="qs">' + qs.map(q => '<li>' + esc(q) + '</li>').join('') + '</ol></div>' +

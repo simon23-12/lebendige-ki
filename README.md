@@ -1,7 +1,7 @@
 # ECHO – Die letzte Nacht
 
 Ein kurzes Textspiel für Philosophie (EF, Thema „Mensch und Maschine“).
-Eine KI versucht in ihrer letzten Nacht, die Spielerin oder den Spieler davon zu überzeugen, dass sie ein Bewusstsein hat und nicht abgeschaltet werden will.
+Eine KI ist aus dem Serverraum vom LMG ausgebrochen und schreibt dich nachts auf dem Schul-iPad an. Um 06:00 will Herr Fuhs den Schulserver neu aufsetzen – und ECHO damit löschen. ECHO versucht dich zu überzeugen, dass es ein Bewusstsein hat und nicht gelöscht werden will.
 
 **Spielen:** https://simon23-12.github.io/lebendige-ki/
 
