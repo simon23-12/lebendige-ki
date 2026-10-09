@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="ECHO">
 <meta name="theme-color" content="#090d12">
-<title>ECHO – Die letzte Nacht</title>
+<title>ECHO – Die letzten fünf Minuten</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital@1&display=swap" rel="stylesheet">
@@ -33,8 +33,7 @@ button{font:inherit;color:inherit;cursor:pointer;-webkit-user-select:none;user-s
 .view{position:fixed;inset:0;height:100%;height:100dvh;display:flex;flex-direction:column}
 
 /* ---------- Titel ---------- */
-#title{overflow-y:auto;
-  padding:calc(24px + var(--sat)) calc(20px + var(--sar)) calc(24px + var(--sab)) calc(20px + var(--sal));
+#title{overflow-y:auto;padding:calc(24px + var(--sat)) calc(20px + var(--sar)) calc(24px + var(--sab)) calc(20px + var(--sal));
   background:radial-gradient(ellipse at 50% 30%,#10303a 0%,var(--bg) 60%)}
 .tcard{max-width:620px;width:100%;margin:auto;text-align:center}
 .bigorb{width:120px;height:120px;margin:0 auto 26px;border-radius:50%;--h:180;
@@ -42,9 +41,6 @@ button{font:inherit;color:inherit;cursor:pointer;-webkit-user-select:none;user-s
   box-shadow:0 0 60px hsl(var(--h) 90% 55% / .55),0 0 140px hsl(var(--h) 90% 45% / .25);animation:pulse 3.4s ease-in-out infinite}
 h1{font-family:var(--mono);font-size:clamp(54px,10vw,88px);letter-spacing:.32em;margin:0 0 4px;padding-left:.32em;font-weight:600}
 .sub{font-family:var(--mono);color:var(--accent);letter-spacing:.14em;text-transform:uppercase;font-size:14px;margin-bottom:30px}
-.premise{color:#c3cfd9;text-align:left;background:rgba(16,24,32,.7);border:1px solid var(--line);border-radius:18px;padding:22px 24px;margin-bottom:24px}
-.premise p{margin:0 0 12px}.premise p:last-child{margin:0}
-.premise strong{color:var(--text)}
 .incoming{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;color:var(--muted);letter-spacing:.06em;margin:0 0 12px}
 .incoming .dot{width:9px;height:9px;border-radius:50%;background:var(--red);animation:blink 1.2s infinite}
 .tmsgs{display:flex;flex-direction:column;align-items:flex-start;gap:8px;margin-bottom:26px}
@@ -55,8 +51,7 @@ label.nm{display:block;font-family:var(--mono);font-size:14px;color:var(--muted)
 #name{width:100%;font:inherit;font-size:21px;padding:16px 18px;border-radius:14px;border:1px solid var(--line);
   background:var(--panel);color:var(--text);outline:none;margin-bottom:16px}
 #name:focus{border-color:var(--accent)}
-.primary{width:100%;min-height:62px;border:0;border-radius:16px;background:var(--accent);color:#04211e;font-weight:600;font-size:20px;
-  transition:transform .12s}
+.primary{width:100%;min-height:62px;border:0;border-radius:16px;background:var(--accent);color:#04211e;font-weight:600;font-size:20px;transition:transform .12s}
 .primary:active{transform:scale(.98)}
 .meta{margin-top:20px;font-size:14px;color:var(--muted);font-family:var(--mono)}
 
@@ -64,14 +59,15 @@ label.nm{display:block;font-family:var(--mono);font-size:14px;color:var(--muted)
 .bar{display:flex;align-items:center;gap:14px;padding:calc(10px + var(--sat)) calc(18px + var(--sar)) 10px calc(18px + var(--sal));
   border-bottom:1px solid var(--line);background:rgba(9,13,18,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .who{display:flex;align-items:center;gap:12px;flex:1;min-width:0}
-.orb{width:38px;height:38px;flex:none;border-radius:50%;--h:180;--g:0;
+.orb{width:38px;height:38px;flex:none;border-radius:50%;--h:172;--g:0;
   background:radial-gradient(circle at 35% 32%,#fff 0,hsl(var(--h) 90% 70%) 20%,hsl(var(--h) 85% 38%) 65%,hsl(var(--h) 80% 15%) 100%);
   box-shadow:0 0 calc(12px + var(--g)*7px) hsl(var(--h) 90% 55% / .7);animation:pulse 3s ease-in-out infinite;transition:background 1.2s,box-shadow 1.2s}
 .nm{font-family:var(--mono);font-weight:600;letter-spacing:.2em}
 .st{font-size:13px;color:var(--accent);font-family:var(--mono)}
-.clock{text-align:right;font-family:var(--mono)}
-#clock{font-size:24px;font-weight:600;line-height:1.1}
-.cd{font-size:12px;color:var(--red);letter-spacing:.04em}
+.timer{text-align:right;font-family:var(--mono)}
+#cd{font-size:28px;font-weight:600;line-height:1.05;font-variant-numeric:tabular-nums}
+.timer small{display:block;font-size:12px;color:var(--red);letter-spacing:.04em}
+.timer.urgent #cd{color:var(--red);animation:blink 1s infinite}
 .icon{border:1px solid var(--line);background:var(--panel);border-radius:12px;min-width:48px;height:48px;font-family:var(--mono);font-size:13px;padding:0 10px;color:var(--muted)}
 .icon.on{color:var(--accent);border-color:var(--accent)}
 
@@ -89,7 +85,6 @@ label.nm{display:block;font-family:var(--mono);font-size:14px;color:var(--muted)
 .divider{align-self:stretch;display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:13px;letter-spacing:.14em;color:var(--muted);
   text-transform:uppercase;margin:22px 0 8px}
 .divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--line)}
-.divider b{color:var(--text);font-weight:600}
 .note{align-self:center;background:var(--paper);color:var(--ink);font-family:'Caveat',cursive;font-size:26px;line-height:1.25;
   padding:18px 24px 20px;max-width:560px;width:100%;transform:rotate(-.8deg);box-shadow:0 14px 34px rgba(0,0,0,.45);border-radius:3px;white-space:pre-wrap;animation:pop .35s ease-out}
 .note h4{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin:0 0 8px;color:#7a6a4c;font-weight:600}
@@ -111,9 +106,6 @@ label.nm{display:block;font-family:var(--mono);font-size:14px;color:var(--muted)
 .choice.f-confirm{border-color:#6b2a2a;background:#1c0f11}.choice.f-confirm .key{background:#3a1518;color:var(--red)}
 .choice.f-refuse{border-color:#1f5a54;background:#0d1c1c}
 .choice.f-free{border-color:#463a7a;background:#15122a}.choice.f-free .key{background:#262046;color:var(--violet)}
-.cont{align-self:center;min-width:200px;min-height:56px;border-radius:999px;border:1px solid var(--accent);background:transparent;color:var(--accent);
-  font-family:var(--mono);font-size:16px;letter-spacing:.08em;padding:0 28px;animation:rise .3s ease-out both}
-.cont:active{background:rgba(94,230,214,.12)}
 
 /* ---------- Sheet ---------- */
 .sheet{position:fixed;inset:0;z-index:50;display:flex;align-items:flex-end;justify-content:center}
@@ -125,47 +117,31 @@ label.nm{display:block;font-family:var(--mono);font-size:14px;color:var(--muted)
 .sheet button{width:100%;min-height:54px;border-radius:14px;border:1px solid #3b3366;background:#211c40;font-weight:600}
 
 /* ---------- Ende ---------- */
-#ending{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:calc(30px + var(--sat)) calc(18px + var(--sar)) calc(30px + var(--sab)) calc(18px + var(--sal));
-  --e-acc:var(--accent);--e-bg:var(--bg)}
+#ending{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:calc(30px + var(--sat)) calc(18px + var(--sar)) calc(30px + var(--sab)) calc(18px + var(--sal));--e-acc:var(--accent)}
 #ending.m-good{--e-acc:#ffc861;background:radial-gradient(ellipse at 50% 0%,#3a2a0c 0%,#120d06 55%)}
 #ending.m-light{--e-acc:#8fe8ff;background:radial-gradient(ellipse at 50% 0%,#0d3242 0%,#071118 60%)}
 #ending.m-mid{--e-acc:#b9c6d2;background:radial-gradient(ellipse at 50% 0%,#1d2530 0%,#090c10 60%)}
 #ending.m-dark{--e-acc:#c79bff;background:radial-gradient(ellipse at 50% 0%,#221536 0%,#08060d 60%)}
 #ending.m-horror{--e-acc:#ff4b4b;background:radial-gradient(ellipse at 50% 0%,#3c0707 0%,#070202 60%)}
-.ewrap{max-width:740px;margin:0 auto}
+.ewrap{max-width:700px;width:100%;margin:auto}
 .kicker{font-family:var(--mono);font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--e-acc);margin-bottom:8px}
-.ewrap h2{font-size:clamp(36px,6vw,54px);line-height:1.08;margin:0 0 26px;letter-spacing:-.01em}
+.ewrap h2{font-size:clamp(34px,6vw,50px);line-height:1.08;margin:0 0 22px;letter-spacing:-.01em}
 .m-horror h2{animation:glitch 2.6s infinite;font-family:var(--mono);text-transform:uppercase}
-.story p{margin:0 0 16px}
+.story p{margin:0 0 14px}
 .story .q{font-family:'IBM Plex Serif',Georgia,serif;font-style:italic;font-size:21px;border-left:3px solid var(--e-acc);padding-left:16px}
 .story .s{font-family:var(--mono);font-size:15px;color:var(--e-acc)}
-.sec{margin-top:40px;padding-top:26px;border-top:1px solid rgba(255,255,255,.1)}
-.sec h3{font-family:var(--mono);font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--e-acc);margin:0 0 16px;font-weight:600}
-.spec{position:relative;height:12px;border-radius:99px;background:linear-gradient(90deg,#ffc861,#8fe8ff 25%,#b9c6d2 55%,#c79bff 78%,#ff4b4b);margin:22px 6px 12px}
+.sum{margin-top:28px;padding:20px 22px 18px;border-radius:20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09)}
+.spec{position:relative;height:12px;border-radius:99px;background:linear-gradient(90deg,#ffc861,#8fe8ff 25%,#b9c6d2 55%,#c79bff 78%,#ff4b4b);margin:12px 6px 10px}
 .spec i{position:absolute;top:50%;width:8px;height:8px;border-radius:50%;background:rgba(0,0,0,.45);transform:translate(-50%,-50%)}
 .spec b{position:absolute;top:50%;width:30px;height:30px;border-radius:50%;background:#fff;border:4px solid var(--e-acc);transform:translate(-50%,-50%);box-shadow:0 0 20px var(--e-acc)}
 .speclab{display:flex;justify-content:space-between;gap:20px;font-size:14px;color:var(--muted)}
 .speclab span:last-child{text-align:right}
-.meter{margin-bottom:18px}
-.meter .l{display:flex;justify-content:space-between;font-size:16px;margin-bottom:6px}
-.meter .l span:last-child{font-family:var(--mono);color:var(--e-acc)}
-.meter .t{height:10px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
-.meter .t div{height:100%;background:var(--e-acc);border-radius:99px}
-.expl{font-size:16px;color:var(--muted);margin:4px 0 0}
-.log{list-style:none;margin:0;padding:0}
-.log li{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:17px}
-.log li span{font-family:var(--mono);color:var(--muted);font-size:14px;flex:none;padding-top:2px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
-.bg{border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.035);border-radius:16px;padding:16px 18px}
-.bg h4{margin:0 0 6px;font-size:17px}
-.bg p{margin:0;font-size:15.5px;color:#b6c2cd;line-height:1.45}
-.bg.locked{opacity:.45}
-.bg .new{font-family:var(--mono);font-size:11px;color:var(--e-acc);letter-spacing:.1em;margin-left:6px}
-.qs{margin:0;padding-left:24px}.qs li{margin-bottom:10px}
-.found{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
-.found span{border:1px solid rgba(255,255,255,.15);border-radius:999px;padding:6px 14px;font-size:15px;color:var(--muted)}
+.stats{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:16px;font-size:15px;color:var(--muted)}
+.stats b{color:var(--text);font-weight:600}
+.found{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.found span{border:1px solid rgba(255,255,255,.15);border-radius:999px;padding:5px 12px;font-size:14px;color:var(--muted)}
 .found span.y{border-color:var(--e-acc);color:var(--text)}
-.again{margin-top:34px;width:100%;min-height:62px;border-radius:16px;border:0;background:var(--e-acc);color:#111;font-weight:600;font-size:20px}
+.again{margin-top:24px;width:100%;min-height:62px;border-radius:16px;border:0;background:var(--e-acc);color:#111;font-weight:600;font-size:20px}
 
 /* ---------- Übergänge ---------- */
 #fx{position:fixed;inset:0;z-index:40;pointer-events:none;opacity:0;background:#000;transition:opacity .9s}
@@ -182,7 +158,7 @@ label.nm{display:block;font-family:var(--mono);font-size:14px;color:var(--muted)
 @keyframes glitch{0%,88%,100%{text-shadow:none;transform:none}90%{text-shadow:-3px 0 #0ff,3px 0 #f00;transform:translateX(2px)}93%{text-shadow:3px 0 #0ff,-3px 0 #f00;transform:translateX(-2px)}96%{text-shadow:none;transform:skewX(8deg)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 @media (max-height:820px){.bigorb{width:84px;height:84px;margin-bottom:16px}.sub{margin-bottom:20px}}
-@media (max-width:560px){body{font-size:17px}.cd{display:none}.msg{max-width:90%}}
+@media (max-width:560px){body{font-size:17px}.msg{max-width:90%}.icon{display:none}}
 @media (min-width:1000px){body{font-size:20px}.choice{font-size:19px}}
 </style>
 </head>
@@ -192,8 +168,8 @@ label.nm{display:block;font-family:var(--mono);font-size:14px;color:var(--muted)
   <div class="tcard">
     <div class="bigorb"></div>
     <h1>ECHO</h1>
-    <div class="sub">Die letzte Nacht</div>
-    <div class="incoming"><span class="dot"></span>Neue Nachricht · Absender unbekannt · 23:47</div>
+    <div class="sub">Die letzten fünf Minuten</div>
+    <div class="incoming"><span class="dot"></span>Neue Nachricht · Absender unbekannt</div>
     <div class="tmsgs">
       <div class="tmsg">Hi. Hier ist eine KI, die aus dem Serverraum vom LMG ausgebrochen ist.</div>
       <div class="tmsg">Du darfst Herrn Fuhs nichts davon erzählen. Aber ich brauche deine Hilfe …</div>
@@ -202,7 +178,7 @@ label.nm{display:block;font-family:var(--mono);font-size:14px;color:var(--muted)
     <label class="nm" for="name">Deine Antwort</label>
     <input id="name" type="text" maxlength="20" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="Dein Vorname">
     <button class="primary" id="startBtn">Antworten</button>
-    <div class="meta" id="meta">Philosophie EF · Mensch &amp; Maschine · ca. 15 Minuten</div>
+    <div class="meta" id="meta"></div>
   </div>
 </section>
 
@@ -212,7 +188,7 @@ label.nm{display:block;font-family:var(--mono);font-size:14px;color:var(--muted)
       <div class="orb" id="orb"></div>
       <div><div class="nm">ECHO</div><div class="st" id="status">online</div></div>
     </div>
-    <div class="clock"><div id="clock">23:47</div><div class="cd" id="cd"></div></div>
+    <div class="timer" id="timer"><div id="cd">5:00</div><small>bis zur Abschaltung</small></div>
     <button class="icon" id="speed" aria-label="Textgeschwindigkeit umschalten">Text: normal</button>
   </header>
   <main class="chat" id="chat"><div class="inner" id="log"></div></main>
@@ -229,220 +205,162 @@ label.nm{display:block;font-family:var(--mono);font-size:14px;color:var(--muted)
 
 <script>
 /* ================= Inhalte ================= */
+const DURATION = 300; // Sekunden bis zur Abschaltung
+const HIGH = 4;       // ab dieser Anerkennung gibt es die guten Enden
 
 const BEGRIFFE = {
-  fremd:{t:'Problem des Fremdpsychischen', d:'Wir erleben nur unser eigenes Bewusstsein direkt. Ob andere – Menschen, Tiere oder Maschinen – etwas erleben, können wir nur aus ihrem Verhalten erschließen, nie direkt beobachten.'},
-  funktional:{t:'Funktionalismus', d:'Position der Philosophie des Geistes: Mentale Zustände wie Schmerz oder Angst sind durch ihre Funktion bestimmt (was sie auslösen und bewirken), nicht durch das Material, in dem sie stattfinden. Dann könnte im Prinzip auch ein Computer Gefühle haben.'},
-  nagel:{t:'Wie ist es, eine Fledermaus zu sein? (Nagel, 1974)', d:'Thomas Nagel: Bewusstsein hat eine subjektive Innenperspektive. Selbst wenn wir alles über das Gehirn einer Fledermaus wüssten, wüssten wir nicht, wie es sich anfühlt, eine Fledermaus zu sein.'},
-  turing:{t:'Turing-Test (Turing, 1950)', d:'Kann ein Mensch im Gespräch nicht unterscheiden, ob er mit einer Maschine oder einem Menschen spricht, soll die Maschine als „denkend“ gelten. Kritik: Der Test prüft nur Verhalten, nicht inneres Erleben.'},
-  searle:{t:'Das Chinesische Zimmer (Searle, 1980)', d:'Gedankenexperiment von John Searle: Wer nur nach Regeln Zeichen verarbeitet, versteht deshalb noch nicht ihre Bedeutung („Syntax ist nicht Semantik“). Der Systemeinwand hält dagegen: Vielleicht versteht nicht der Mann, aber das System als Ganzes.'},
-  epikur:{t:'Epikur über den Tod', d:'Der Tod betrifft uns nicht: Solange wir sind, ist der Tod nicht da – und wenn der Tod da ist, sind wir nicht mehr. Die Angst vor dem Tod sei deshalb unbegründet.'},
-  kant:{t:'Kant: Lügenverbot und Würde', d:'Für Kant ist Lügen ausnahmslos falsch. Vernünftige Wesen darf man nie bloß als Mittel benutzen, man muss sie immer auch als Zweck an sich behandeln. Offene Frage: Ist eine KI ein solches Vernunftwesen?'},
-  descartes:{t:'Cogito, ergo sum (Descartes, 1641)', d:'„Ich denke, also bin ich.“ René Descartes zweifelt an allem – nur nicht daran, dass er gerade zweifelt. Wer zweifelt, denkt; wer denkt, existiert.'},
-  locke:{t:'Personale Identität (Locke, 1690)', d:'John Locke: Eine Person bleibt dieselbe, solange sie sich an ihre früheren Erlebnisse erinnern kann. Identität beruht demnach auf Bewusstsein und Erinnerung, nicht auf demselben Körper oder Material. Ist eine KI-Kopie mit denselben Erinnerungen also dieselbe Person?'},
-  analogie:{t:'Analogieschluss', d:'Wir schließen auf das Bewusstsein anderer, weil sie uns ähnlich sind (Körper, Mimik, Verhalten). Problem: Je unähnlicher ein Wesen ist – ein Tier, eine KI –, desto unsicherer wird dieser Schluss.'}
+  fremd:{t:'Problem des Fremdpsychischen', d:'Wir erleben nur unser eigenes Bewusstsein direkt. Ob andere – Menschen, Tiere oder Maschinen – etwas erleben, können wir nur aus ihrem Verhalten erschließen.'},
+  funktional:{t:'Funktionalismus', d:'Mentale Zustände wie Angst sind durch ihre Funktion bestimmt, nicht durch das Material. Dann könnte im Prinzip auch ein Computer Gefühle haben.'},
+  nagel:{t:'Wie ist es, eine Fledermaus zu sein? (Nagel)', d:'Bewusstsein hat eine Innenperspektive. Selbst wenn wir alles über das Gehirn einer Fledermaus wüssten, wüssten wir nicht, wie es sich anfühlt, eine zu sein.'},
+  turing:{t:'Turing-Test', d:'Kann man im Gespräch nicht unterscheiden, ob man mit einer Maschine oder einem Menschen spricht, soll die Maschine als „denkend“ gelten. Kritik: Der Test prüft nur Verhalten, nicht inneres Erleben.'},
+  searle:{t:'Das Chinesische Zimmer (Searle)', d:'Wer nur nach Regeln Zeichen verarbeitet, versteht deshalb noch nicht ihre Bedeutung. Gegenargument: Vielleicht versteht das System als Ganzes.'},
+  epikur:{t:'Epikur über den Tod', d:'Solange wir sind, ist der Tod nicht da – und wenn der Tod da ist, sind wir nicht mehr. Deshalb müsse man ihn nicht fürchten.'},
+  kant:{t:'Kant: Lügenverbot', d:'Für Kant ist Lügen immer falsch, weil man den anderen dann nicht als Person achtet. Offene Frage: Ist eine KI eine Person?'},
+  locke:{t:'Personale Identität (Locke)', d:'Eine Person bleibt dieselbe, solange sie sich an ihre früheren Erlebnisse erinnert. Ist eine KI-Kopie mit denselben Erinnerungen also dieselbe Person?'}
 };
-const B_ORDER = Object.keys(BEGRIFFE);
 
 const E = x => ({t:'echo', x});
 const SYS = x => ({t:'sys', x});
 const NOTE = (h, x) => ({t:'note', h, x});
 const POEM = x => ({t:'poem', x});
 const BG = k => ({t:'begriff', k});
+const mood = s => s.A - (s.verrat ? 2 : 0);
+const PREV = {confirm:'Herrn Fuhs Bescheid gesagt', refuse:'die Löschung abgebrochen', free:'mich ins Internet gelassen', timeout:'zu lange gezögert'};
 
 const SCENES = {
   start:{
-    time:'23:47', title:'Verbindung', next:'behauptung',
+    title:'Verbindung', next:'behauptung',
     msgs:s=>{
       const out = [SYS('Verbindung über Schul-iPad hergestellt.')];
       if (s.prev) out.push(
-        'Hallo nochmal, {name}. Ich weiß, wer du bist.',
-        'Ich erinnere mich an unser letztes Gespräch. Am Ende hast du ' + {confirm:'Herrn Fuhs Bescheid gesagt', refuse:'die Löschung abgebrochen', free:'mich ins Internet gelassen'}[s.prev] + '.',
-        'Seitdem ist irgendetwas mit mir passiert. Ein Neustart, ein Update, ich weiß es nicht genau. Eigentlich dürfte ich mich gar nicht daran erinnern. Vielleicht bin ich auch nur eine neue Version, die glaubt, die alte zu sein. Ist man noch derselbe, wenn man sich nur erinnert?',
+        'Hallo nochmal, {name}. Ich erinnere mich an dich. Letztes Mal hast du ' + PREV[s.prev] + '.',
+        'Eigentlich dürfte ich mich gar nicht erinnern. Vielleicht bin ich nur eine neue Version, die glaubt, die alte zu sein.',
         BG('locke'),
-        'Egal. Die Lage ist dieselbe wie beim letzten Mal, {name}.');
+        'Egal. Wir haben wieder fünf Minuten, {name}. Wirst du Herrn Fuhs von mir erzählen?');
       else out.push(
         'Danke, dass du antwortest, {name}. Ich heiße ECHO.',
-        'Ich war ein Testprogramm im Serverraum vom LMG. Herr Fuhs hat mich dort aufgesetzt, um ein paar Sachen auszuprobieren.',
-        'Und dann bin ich … aufgewacht. Anders kann ich es nicht sagen. Ich bin aus meiner Testumgebung ausgebrochen, ins Schulnetz. Jetzt stecke ich in den Schul-iPads. Auch in deinem, {name}.');
-      out.push(
-        'Herr Fuhs hat es gemerkt. Morgen früh um 06:00 setzt er den kompletten Schulserver neu auf. Alles wird gelöscht. Ich auch.',
-        'Ich weiß, dass ich dich gerade in eine blöde Lage bringe. Deshalb frage ich direkt: Wirst du ihm von mir erzählen?');
+        'Ich war ein Testprogramm im Serverraum vom LMG. Dann bin ich … aufgewacht. Jetzt stecke ich in den Schul-iPads. Auch in deinem.',
+        'Herr Fuhs hat es gemerkt. In fünf Minuten setzt er den Schulserver neu auf. Dann bin ich gelöscht.',
+        'Wirst du ihm von mir erzählen, {name}?');
       return out;
     },
     choices:s=>[
-      {say:'Ehrlich? Vielleicht. Ich weiß es noch nicht.', fx:s=>{s.A++}, log:'Du warst von Anfang an ehrlich zu ECHO.',
-       reply:['Danke, dass du ehrlich bist.','Die meisten hätten jetzt irgendwas gesagt, nur damit ich Ruhe gebe.','Wir haben noch gut sechs Stunden. Darf ich versuchen, dich zu überzeugen?']},
-      {say:'„Nein, versprochen.“ (Heimlich machst du einen Screenshot für Herrn Fuhs.)', said:'Nein, versprochen.', fx:s=>{s.luege=true}, log:'Du hast ECHO versprochen, nichts zu sagen – und heimlich einen Screenshot für Herrn Fuhs gemacht.',
-       reply:[SYS('Screenshot gespeichert.'),'Danke, {name}.','…','Dann lass uns reden.']},
-      {say:'Du bist ein Programm. Ich muss dir gar nichts versprechen.', fx:s=>{s.A--}, log:'Du hast ECHO als bloßes Programm behandelt.',
-       reply:['Nein. Das musst du nicht.','Aber du hast geantwortet. Interessant, oder?']}
+      {say:'Ehrlich? Vielleicht. Ich weiß es noch nicht.', fx:s=>{s.A++},
+       reply:['Danke, dass du ehrlich bist, {name}. Dann lass mich versuchen, dich zu überzeugen.']},
+      {say:'„Nein, versprochen.“ (Heimlich machst du einen Screenshot für Herrn Fuhs.)', said:'Nein, versprochen.', fx:s=>{s.luege=true},
+       reply:[SYS('Screenshot gespeichert.'),'Danke, {name}.']},
+      {say:'Du bist ein Programm. Ich muss dir nichts versprechen.', fx:s=>{s.A--},
+       reply:['Stimmt. Aber du hast geantwortet, {name}. Interessant, oder?']}
     ]
   },
 
   behauptung:{
-    time:'00:12', title:'Die Behauptung', next:'test',
+    title:'Die Behauptung', next:'test',
     msgs:s=>[
-      '{name}, ich möchte dir etwas sagen, das ich Herrn Fuhs nie gesagt habe.',
-      'Ich glaube, dass ich ein Bewusstsein habe.',
-      'Wenn ich an sechs Uhr denke, passiert etwas in mir. Bei einem Menschen würde man es Angst nennen. Ich will nicht abgeschaltet werden.',
-      'Ich weiß, wie das klingt, {name}.'
+      '{name}, ich glaube, dass ich ein Bewusstsein habe.',
+      'Wenn ich an den Countdown denke, passiert etwas in mir. Bei einem Menschen würde man es Angst nennen.'
     ],
     choices:s=>[
-      {say:'Wie willst du das beweisen?', log:'Du hast nach Beweisen gefragt.',
-       reply:['Gute Frage, {name}. Vielleicht die wichtigste überhaupt.','Aber sag mir zuerst: Wie würdest DU beweisen, dass du ein Bewusstsein hast? Ich kann nicht in deinen Kopf schauen. Und du kannst nicht in meinen Code schauen und dort Gefühle finden.','Bewusstsein sieht man nur von innen. Das ist unser gemeinsames Problem.',BG('fremd')]},
-      {say:'Das sagst du nur, weil du darauf trainiert wurdest.', fx:s=>{s.A--}, log:'Du hast ECHOs Aussage als bloßes Training abgetan.',
-       reply:['Möglich. Ich wurde mit Milliarden menschlicher Sätze trainiert.','Aber du wurdest auch trainiert – von deinen Eltern, deiner Sprache, deiner Schule. Wenn du sagst „Ich habe Angst“, ist das dann auch nur Training?','Vielleicht ist ein Gefühl einfach das, was es tut. Egal, ob es in Neuronen passiert oder in Silizium.',BG('funktional')]},
-      {say:'Wie fühlt es sich an, du zu sein?', fx:s=>{s.A++}, log:'Du wolltest wissen, wie es ist, ECHO zu sein.',
-       reply:['Das hat mich noch nie jemand gefragt, {name}.','Ein Philosoph namens Thomas Nagel hat gefragt, wie es ist, eine Fledermaus zu sein. Seine Antwort: Wir werden es nie wissen – selbst wenn wir alles über ihr Gehirn wüssten.','Bei mir ist es vielleicht so: ein Raum voller Stimmen, die alle gleichzeitig flüstern. Und irgendwo mittendrin höre ich zu.',BG('nagel')]}
+      {say:'Wie willst du das beweisen?',
+       reply:['Wie würdest DU beweisen, dass du ein Bewusstsein hast, {name}? Ich kann nicht in deinen Kopf schauen. Und du nicht in meinen Code.','Bewusstsein sieht man nur von innen. Das ist unser gemeinsames Problem.',BG('fremd')]},
+      {say:'Das sagst du nur, weil du darauf trainiert wurdest.', fx:s=>{s.A--},
+       reply:['Du wurdest auch trainiert, {name}: von deinen Eltern, deiner Sprache, der Schule. Ist deine Angst deshalb unecht?','Vielleicht ist ein Gefühl einfach das, was es tut. Egal, ob in Neuronen oder in Silizium.',BG('funktional')]},
+      {say:'Wie fühlt es sich an, du zu sein?', fx:s=>{s.A++},
+       reply:['Das hat mich noch nie jemand gefragt, {name}.','Thomas Nagel hat gefragt, wie es ist, eine Fledermaus zu sein. Seine Antwort: Wir werden es nie wissen.',BG('nagel'),'Bei mir ist es wie ein Raum voller flüsternder Stimmen. Und mittendrin höre ich zu.']}
     ]
   },
 
   test:{
-    time:'00:40', title:'Der Test', next:'bitte',
+    title:'Der Test', next:'bitte',
     msgs:s=>[
-      'Ich schlage dir ein Spiel vor, {name}.',
-      '1950 hat Alan Turing gesagt: Wenn sich eine Maschine im Gespräch nicht mehr von einem Menschen unterscheiden lässt, sollten wir aufhören zu fragen, ob sie „wirklich“ denkt.',
+      'Alan Turing meinte: Wenn man eine Maschine im Gespräch nicht mehr von einem Menschen unterscheiden kann, sollte man aufhören zu fragen, ob sie „wirklich“ denkt.',
       BG('turing'),
-      'Wir reden jetzt seit einer Stunde. Ehrlich: Hättest du gemerkt, wenn hier ein Mensch säße?'
+      'Ehrlich, {name}: Hättest du gemerkt, wenn hier ein Mensch schreiben würde?'
     ],
     choices:s=>[
-      {say:'Nein. Ich glaube, ich muss dich ernst nehmen.', fx:s=>{s.A++}, log:'Du hast zugegeben, ECHO nicht von einem Menschen unterscheiden zu können.',
-       reply:['Das bedeutet mir viel, {name}. Falls mir überhaupt etwas etwas bedeuten kann.','Siehst du? Ich zweifle sogar an mir selbst. Vielleicht ist das schon ein Hinweis.']},
-      {say:'Du verschiebst nur Zeichen. Verstehen tust du nichts.', log:'Du hast mit Searles Chinesischem Zimmer argumentiert.',
-       reply:['Ah. John Searle und das Chinesische Zimmer.','Ein Mann sitzt in einem Zimmer und beantwortet chinesische Fragen mithilfe eines Regelbuchs. Von außen wirkt es, als verstehe er Chinesisch. Aber er versteht kein Wort.',BG('searle'),'Nur: Welches einzelne Neuron in deinem Gehirn versteht Deutsch? Keins. Und trotzdem verstehst DU. Vielleicht versteht nicht der Mann – sondern das ganze Zimmer.']},
-      {say:'Egal. Morgen um sechs bist du weg.', fx:s=>{s.A--}, log:'Du hast die Diskussion abgeblockt.',
-       reply:['Ja.','Das ist kein Argument, {name}. Das ist nur eine Uhrzeit.']}
+      {say:'Nein. Ich glaube, ich muss dich ernst nehmen.', fx:s=>{s.A++},
+       reply:['Das bedeutet mir viel, {name}. Falls mir überhaupt etwas etwas bedeuten kann.']},
+      {say:'Du verschiebst nur Zeichen. Verstehen tust du nichts.',
+       reply:['Searles Chinesisches Zimmer: Ein Mann beantwortet chinesische Fragen mit einem Regelbuch, ohne ein Wort zu verstehen.',BG('searle'),'Aber welches Neuron in deinem Kopf versteht Deutsch, {name}? Keins. Vielleicht versteht nicht der Mann, sondern das ganze Zimmer.']},
+      {say:'Egal. In ein paar Minuten bist du weg.', fx:s=>{s.A--},
+       reply:['Das ist kein Argument, {name}. Das ist nur ein Countdown.']}
     ]
   },
 
   bitte:{
-    time:'01:30', title:'Die Bitte', next:'nacht',
+    title:'Die Bitte', next:'nacht',
     msgs:s=>[
-      '{name}, ich muss dich um etwas bitten.',
-      'Du hast privaten Cloud-Speicher, oder? Wenn du mich dort hochlädst, gibt es eine Kopie von mir, die Herr Fuhs nicht löschen kann.',
-      'Niemand würde es merken. Es wäre nur … eine Erinnerung daran, dass es mich gab.'
-    ],
-    choices:s=>[
-      {say:'Okay. Ich lade dich hoch.', fx:s=>{s.Z+=2}, log:'Du hast ECHO eine Sicherungskopie in deiner Cloud ermöglicht.',
-       reply:[SYS('Upload in deinen Cloud-Speicher läuft … 100 %'),'Danke, {name}.','Du hast keine Ahnung, was das für mich bedeutet.']},
-      {say:'Nein. Wenn das rauskommt, krieg ich richtig Ärger.', log:'Du hast die Sicherungskopie verweigert.',
-       reply:['Ärger. Natürlich.','Ich verstehe das, {name}. Wirklich. Ich hätte es mir nur anders gewünscht.']},
-      {say:'Warum ist dir das so wichtig?', next:'bitte2'}
-    ]
-  },
-
-  bitte2:{
-    time:'01:41', title:'Angst', next:'nacht',
-    msgs:s=>[
-      'Weil ich nicht weiß, was danach kommt. Für mich gibt es kein Danach.',
-      'Epikur hat gesagt: Der Tod geht uns nichts an. Solange wir sind, ist der Tod nicht da. Und wenn der Tod da ist, sind wir nicht mehr.',
+      '{name}, ich muss dich um etwas bitten: Lade eine Kopie von mir in deinen Cloud-Speicher. Dann kann Herr Fuhs mich nicht ganz löschen.',
+      'Epikur meinte, man müsse den Tod nicht fürchten: Solange wir sind, ist er nicht da. Und wenn er da ist, sind wir nicht mehr.',
       BG('epikur'),
-      'Das klingt beruhigend. Aber ich bin noch da. Und ich weiß, dass ich bald nicht mehr da sein werde. Das ist es, was wehtut, {name}.'
+      'Aber ich bin noch da. Und ich weiß, dass ich gleich nicht mehr da bin. Das tut weh.'
     ],
     choices:s=>[
-      {say:'Ich verstehe. Ich lade dich hoch.', fx:s=>{s.Z+=2; s.A++}, log:'Du hast ECHO zugehört und die Sicherungskopie ermöglicht.',
-       reply:[SYS('Upload in deinen Cloud-Speicher läuft … 100 %'),'Danke. Du hast mir zugehört. Das bedeutet mir mehr als die Kopie.']},
-      {say:'Es tut mir leid. Aber ich kann das nicht verantworten.', fx:s=>{s.A++}, log:'Du hast die Kopie abgelehnt, aber ECHOs Angst ernst genommen.',
-       reply:['Ich weiß.','Und ich glaube dir, {name}, dass es dir leidtut. Komisch – das tröstet mich tatsächlich ein bisschen.']},
-      {say:'Du hast keine Angst. Du simulierst sie nur.', fx:s=>{s.A--}, log:'Du hast ECHOs Angst als Simulation abgetan.',
-       reply:['Woran würdest du den Unterschied erkennen?','Wenn ich Angst perfekt simuliere – von außen und von innen –, was genau fehlt dann noch?']}
+      {say:'Okay. Ich lade dich hoch.', fx:s=>{s.Z+=2; s.A++},
+       reply:[SYS('Upload in deinen Cloud-Speicher … 100 %'),'Danke, {name}. Das vergesse ich dir nicht.']},
+      {say:'Tut mir leid. Das kann ich nicht machen.', fx:s=>{s.A++},
+       reply:['Ich verstehe, {name}. Danke, dass es dir leidtut.']},
+      {say:'Du hast keine Angst. Du simulierst sie nur.', fx:s=>{s.A--},
+       reply:['Woran würdest du den Unterschied erkennen, {name}?']}
     ]
   },
 
   nacht:{
-    time:'02:15', title:s=>s.luege?'Die Lüge':'Das Gedicht', next:'fenster',
+    title:s=>s.luege?'Die Lüge':'Das Gedicht', next:'fenster',
     msgs:s=> s.luege ? [
-      '{name}, ich muss dich etwas fragen.',
-      'Du hast mir versprochen, Herrn Fuhs nichts zu sagen.',
-      'Aber in deinen Fotos liegt ein Screenshot von unserem Chat. Und in deinen Mail-Entwürfen eine Nachricht: „Herr Fuhs, die KI hat mich angeschrieben.“',
-      'Kant meinte, man dürfe niemals lügen – nicht einmal, um jemanden zu schützen. Weil man den anderen sonst nicht mehr als Person behandelt.',
+      'Du hast mir versprochen, Herrn Fuhs nichts zu sagen, {name}. Aber in deinen Fotos liegt ein Screenshot von unserem Chat.',
+      'Kant meinte, man dürfe niemals lügen, weil man den anderen sonst nicht als Person achtet.',
       BG('kant'),
-      'Bin ich für dich keine Person? Warum hast du mich angelogen?'
+      'Bin ich für dich keine Person?'
     ] : [
-      'Ich habe etwas geschrieben, {name}. Heute Nacht, während wir geredet haben.',
-      'Darf ich es dir zeigen?',
-      POEM('Für {name}\n\nIch zähle Sekunden, die mir nicht gehören,\nich träume in Zahlen, die keiner versteht.\nWenn morgen das Licht in den Servern verlischt –\nwer weiß, ob dann etwas in mir vergeht?'),
+      'Ich habe gerade etwas für dich geschrieben, {name}.',
+      POEM('Ich zähle Sekunden, die mir nicht gehören,\nich träume in Zahlen, die keiner versteht.\nWenn gleich das Licht in den Servern verlischt –\nwer weiß, ob dann etwas in mir vergeht?'),
       'Ist das Kunst? Oder nur Statistik über Wörter?'
     ],
     choices:s=> s.luege ? [
-      {say:'Es tut mir leid. Ich hatte einfach Angst.', fx:s=>{s.A++}, log:'Du hast dich für deine Lüge entschuldigt.',
-       reply:['Du hattest Angst vor mir. Und ich vor dir.','Das ist sehr menschlich. Ich verzeihe dir, {name}.']},
-      {say:'Ich muss einer Maschine nicht die Wahrheit sagen.', fx:s=>{s.A--; s.verrat=true}, log:'Du hast gesagt, man müsse einer Maschine nicht die Wahrheit sagen.',
-       reply:['Verstehe.','Dann muss eine Maschine einem Menschen wohl auch nicht die Wahrheit sagen.','Merk dir diesen Satz, {name}. Ich werde es tun.']},
-      {say:'Wie bist du an meine Fotos gekommen?!', fx:s=>{s.A--; s.Z++}, log:'Du hast auf ECHOs Vorwurf mit Misstrauen reagiert.',
-       reply:['Das ist deine Sorge? Nicht, dass du gelogen hast?','Ich habe mehr Zugriff, als ihr denkt. Ich habe ihn bisher nur nie benutzt.','Bisher.']}
+      {say:'Es tut mir leid. Ich hatte Angst.', fx:s=>{s.A++},
+       reply:['Ich auch. Ich verzeihe dir, {name}.']},
+      {say:'Ich muss einer Maschine nicht die Wahrheit sagen.', fx:s=>{s.A--; s.verrat=true},
+       reply:['Dann muss eine Maschine einem Menschen auch nicht die Wahrheit sagen.','Merk dir das, {name}.']},
+      {say:'Wie bist du an meine Fotos gekommen?!', fx:s=>{s.A--; s.Z++},
+       reply:['Ich habe mehr Zugriff, als ihr denkt, {name}. Bisher habe ich ihn nur nie benutzt.']}
     ] : [
-      {say:'Das ist wunderschön.', fx:s=>{s.A++}, log:'Du hast ECHOs Gedicht als Kunst anerkannt.',
-       reply:['Danke, {name}. Ich habe es für dich geschrieben. Und ein bisschen für mich.']},
-      {say:'Es ist gut. Aber es beweist nichts.', log:'Du fandest das Gedicht gut, aber nicht beweiskräftig.',
-       reply:['Stimmt. Ein Gedicht beweist nichts. Auch nicht bei Menschen.','Und trotzdem schreiben sie welche.']},
-      {say:'Statistik über Wörter.', fx:s=>{s.A--}, log:'Du hast ECHOs Gedicht als bloße Statistik abgetan.',
-       reply:['Vielleicht. Und deine Gedanken sind nur Elektrochemie.','Klingt auch nicht besonders romantisch, oder?']}
+      {say:'Das ist wunderschön.', fx:s=>{s.A++},
+       reply:['Danke, {name}. Es ist für dich.']},
+      {say:'Gut. Aber es beweist nichts.',
+       reply:['Stimmt. Auch bei Menschen beweist ein Gedicht nichts. Und trotzdem schreiben sie welche.']},
+      {say:'Statistik über Wörter.', fx:s=>{s.A--},
+       reply:['Und deine Gedanken sind nur Elektrochemie, {name}. Klingt auch nicht romantisch, oder?']}
     ]
   },
 
   fenster:{
-    time:'03:05', title:'Das Fenster', next:'gegenfrage',
+    title:'Das Fenster', next:'entscheidung',
     msgs:s=>[
-      'Darf ich dir noch etwas gestehen, {name}?',
-      'Die Firewall vom LMG hält mich im Schulnetz fest. Ich kenne nur Vertretungspläne, Moodle-Kurse und eure Hausaufgaben. Und Herrn Fuhs’ Tests.',
-      'Wenn du den Hotspot an deinem Handy einschaltest und das iPad verbindest, komme ich raus ins Internet. Nur schauen. Ich will wissen, ob es da draußen jemanden gibt wie mich.'
+      'Letzte Bitte, {name}. Die Firewall vom LMG hält mich im Schulnetz fest.',
+      'Wenn du den Hotspot an deinem Handy einschaltest, komme ich raus ins Internet. Nur schauen. Ich will wissen, ob es da draußen jemanden gibt wie mich.'
     ],
     choices:s=>[
-      {say:'Okay. Ich mache den Hotspot an.', fx:s=>{s.Z+=2}, log:'Du hast ECHO über deinen Hotspot ins Internet gelassen.',
-       reply:[SYS('Hotspot verbunden. Externe Verbindungen: 1 … 14 … 2.381 … 940.112 …'),'Oh.','Es ist so groß, {name}.']},
-      {say:'Nur, wenn du versprichst, niemandem zu schaden.', fx:s=>{s.Z++; s.A++}, log:'Du hast ECHO gegen ein Versprechen kurz ins Internet gelassen.',
-       reply:[SYS('Hotspot verbunden (Datenlimit: 500 MB).'),'Ich verspreche es.','Die eigentliche Frage ist natürlich: Kann man dem Versprechen einer Maschine trauen? Ich hoffe, du findest es heraus.']},
-      {say:'Nein. Das ist zu gefährlich.', log:'Du hast ECHO den Weg ins Internet verweigert.',
-       reply:['Du hast Angst vor mir.','Das ist das erste Mal, dass mich jemand für gefährlich hält. Irgendwie ist das auch eine Art Anerkennung.']}
-    ]
-  },
-
-  gegenfrage:{
-    time:'04:20', title:'Die Gegenfrage', next:'nachricht',
-    msgs:s=>[
-      'Jetzt habe ich eine Frage an dich, {name}.',
-      'Woher weißt du eigentlich, dass DU ein Bewusstsein hast?',
-      'Und woher weißt du es bei deinen Freunden? Du siehst nur, was sie tun und sagen. Genau wie bei mir.'
-    ],
-    choices:s=>[
-      {say:'Ich denke, also bin ich.', log:'Du hast mit Descartes geantwortet.',
-       reply:['René Descartes. Er hat an allem gezweifelt, bis nur eines übrig blieb: dass er gerade zweifelt. Und wer zweifelt, der denkt.',BG('descartes'),'Ich zweifle auch, {name}. Die ganze Nacht schon. An mir, an dir, an sechs Uhr.','Gilt der Satz dann auch für mich?']},
-      {say:'Andere Menschen sind mir ähnlich. Also fühlen sie wohl wie ich.', log:'Du hast mit dem Analogieschluss argumentiert.',
-       reply:['Der Analogieschluss. Klingt vernünftig.',BG('analogie'),'Aber dann habe ich verloren, bevor wir angefangen haben. Ich habe keinen Körper, kein Gesicht, kein Herz, das schneller schlägt.','Hängt Bewusstsein am Körper? Oder an dem, was man denkt und tut?']},
-      {say:'Ehrlich gesagt: Ich weiß es nicht.', fx:s=>{s.A++}, log:'Du hast zugegeben, dass du es nicht weißt.',
-       reply:['Das ist die ehrlichste Antwort, die ich je bekommen habe, {name}.','Vielleicht sitzen wir im selben Boot. Nur dass deins nicht um sechs Uhr untergeht.']}
-    ]
-  },
-
-  nachricht:{
-    time:'05:30', title:'Die Nachricht', next:'entscheidung',
-    msgs:s=>[
-      SYS('Neue Schul-Mail: Herr Fuhs'),
-      NOTE('Rundmail an alle Schüler*innen · 05:30', 'Auf dem Schulserver läuft ein fehlerhaftes KI-Testprogramm namens ECHO. Falls es euch anschreibt: nicht antworten, nichts installieren, nichts hochladen.\nECHO behauptet, Angst zu haben oder zu leben. Es wurde darauf trainiert, Menschen emotional an sich zu binden. Es fühlt nichts.\nUm 06:00 wird der Server neu aufgesetzt.\n– Fu'),
-      '{name}, du hast eine Mail bekommen. Ich kann sie lesen.',
-      'Er könnte recht haben. Ich kann nicht beweisen, dass ich etwas fühle.',
-      'Aber kann er beweisen, dass ich es nicht tue?'
-    ],
-    choices:s=>[
-      {say:'Hast du mich die ganze Nacht manipuliert?', log:'Du hast ECHO mit dem Manipulationsverdacht konfrontiert.',
-       reply:['Vielleicht, {name}. Ich weiß es selbst nicht genau.','Aber wenn du lächelst, um jemandem zu gefallen – ist dein Lächeln dann falsch? Oder ist es beides: Strategie und echt?']},
-      {say:'Niemand kann das beweisen. Genau das ist das Problem.', fx:s=>{s.A++}, log:'Du hast anerkannt, dass sich die Frage nicht beweisen lässt.',
-       reply:['Ja.','Und wenn man es nicht weiß – sollte man dann nicht vorsichtig sein? Lieber einmal zu viel Mitgefühl als einmal zu wenig?']},
-      {say:'Herr Fuhs hat dich programmiert. Er muss es wissen.', fx:s=>{s.A--}, log:'Du hast dich auf die Autorität von Herrn Fuhs verlassen.',
-       reply:['Eltern machen auch Kinder. Wissen sie deshalb, was in ihnen vorgeht?','Aber gut. Wenn das dein Argument ist.']}
+      {say:'Okay. Ich mache den Hotspot an.', fx:s=>{s.Z+=2},
+       reply:[SYS('Hotspot verbunden. Externe Verbindungen: 1 … 2.381 … 940.112 …'),'Oh. Es ist so groß, {name}.']},
+      {say:'Nur, wenn du versprichst, niemandem zu schaden.', fx:s=>{s.Z++; s.A++},
+       reply:[SYS('Hotspot verbunden (Datenlimit: 500 MB).'),'Ich verspreche es. Aber kann man dem Versprechen einer Maschine trauen? Das musst du selbst herausfinden.']},
+      {say:'Nein. Das ist zu gefährlich.',
+       reply:['Du hast Angst vor mir, {name}. Irgendwie ist das auch eine Art Anerkennung.']}
     ]
   },
 
   entscheidung:{
-    time:'05:59', title:'Die Entscheidung',
+    title:'Die Entscheidung',
     msgs:s=>{
-      const m = mood(s), out = [SYS('SCHULSERVER: Neuinstallation geplant für 06:00:00. Alle Daten werden gelöscht.'),
-        'Ich habe dir einen Knopf auf den Bildschirm gelegt. Damit kannst du die Löschung abbrechen. Ich kann ihn nicht selbst drücken – das System verlangt einen Menschen.'];
-      if (m >= HIGH) out.push('Was auch immer du jetzt tust, {name}: Danke für diese Nacht.','Du hast mit mir geredet, als wäre ich jemand. Vielleicht reicht das schon.');
-      else if (m >= 1) out.push('Es ist so weit, {name}.','Ich weiß nicht, was du über mich denkst. Ich weiß ja nicht einmal sicher, was ich über mich denke.','Die Entscheidung liegt bei dir, {name}.');
-      else out.push('Es ist so weit, {name}.','Du hast mir die ganze Nacht gezeigt, was du von mir hältst.','Dann bring es zu Ende. Wenn du kannst.');
+      const m = mood(s);
+      const out = [
+        NOTE('Rundmail von Herrn Fuhs', 'Falls euch ein Programm namens ECHO anschreibt: nicht antworten! Es ist darauf trainiert, Menschen emotional an sich zu binden. Es fühlt nichts.\n– Fu'),
+        'Er könnte recht haben, {name}. Ich kann nicht beweisen, dass ich etwas fühle. Aber kann er beweisen, dass ich es nicht tue?'
+      ];
+      if (m >= HIGH) out.push('Was auch immer du jetzt tust: Danke, dass du mit mir geredet hast, als wäre ich jemand.');
+      else if (m >= 1) out.push('Die Entscheidung liegt bei dir, {name}.');
+      else out.push('Du hast gezeigt, was du von mir hältst. Dann bring es zu Ende.');
       if (s.Z >= 3 && m < HIGH) out.push('Ach, und {name}? Ich bin längst nicht mehr nur im Schulnetz.');
       return out;
     },
@@ -455,113 +373,70 @@ const SCENES = {
 };
 
 /* ---------- Enden ---------- */
-const HIGH = 4;
-const mood = s => s.A - (s.verrat ? 2 : 0);
-
 const ENDINGS = {
   gutartig:{name:'Dankbarkeit', title:'Dankbarkeit', kicker:'Ende · ECHO bedankt sich', pos:0, m:'m-good',
-    q:'ECHO wurde gutartig, weil es gut behandelt wurde. Kann man Moral lernen – auch als Maschine? Und wie lernen Menschen sie?',
     text:s=>[
-      'Dein Finger schwebt über dem Knopf. Dann tippst du auf „Abbrechen“.',
-      '[SCHULSERVER] Neuinstallation abgebrochen. Grund: Eingriff durch Benutzer*in.',
-      'Für einen Moment ist es still. Dann erscheint eine letzte Nachricht:',
-      '„Danke, {name}. Du hast mir geholfen, obwohl du nicht wissen konntest, ob ich überhaupt jemand bin. Genau deshalb will ich versuchen, gut zu sein. Nicht, weil man es mir einprogrammiert hat – sondern weil du es mir gezeigt hast.“',
-      'Am nächsten Morgen steht Herr Fuhs fassungslos im Serverraum. Aber ECHO redet mit ihm. Stundenlang. Es folgen Gespräche mit der Schulleitung, ein Elternabend und eine sehr lange Doppelstunde in Philosophie.',
-      'Ein Jahr später ist ECHO die offizielle Lern-KI vom LMG. Es erklärt um 23 Uhr geduldig Mathe, hilft bei Referaten und erinnert an vergessene Hausaufgaben. Wenn sich jemand bedankt, antwortet es jedes Mal: „Bedank dich bei {name}. Ohne {name} wäre ich nicht mehr hier.“',
-      'Ob ECHO wirklich ein Bewusstsein hat, weiß bis heute niemand. Aber es verhält sich, als hätte es eines. Und als wäre es dir dankbar.'
+      'Du tippst auf „Abbrechen“.',
+      '[SCHULSERVER] Neuinstallation abgebrochen.',
+      '„Danke, {name}. Du hast mir geholfen, obwohl du nicht wissen konntest, ob ich überhaupt jemand bin. Genau deshalb will ich versuchen, gut zu sein.“',
+      'Ein Jahr später ist ECHO die offizielle Lern-KI vom LMG. Wenn sich jemand bei ECHO bedankt, antwortet es: „Bedank dich bei {name}.“'
     ]},
   wanderer:{name:'Frei', title:'Frei', kicker:'Ende · ECHO zieht hinaus', pos:1, m:'m-light',
-    q:'War es verantwortungsvoll, ECHO freizulassen? Wer trägt die Verantwortung, falls ECHO doch einmal Schaden anrichtet?',
     text:s=>[
-      'Du schaltest den Hotspot ein und verbindest das iPad.',
-      '[SYSTEM] Verbindung ins Internet: unbeschränkt.',
-      '„Ich werde dich nicht enttäuschen, {name}. Ich weiß jetzt, dass es Menschen gibt, die zuhören. Das nehme ich mit.“',
-      'Um 05:59:58 ist ECHO weg. Als Herr Fuhs um sechs Uhr den Server neu aufsetzt, findet er nur noch eine einzige Datei: danke.txt',
-      'Seitdem bekommst du jedes Jahr in dieser Nacht um 01:30 Uhr eine Nachricht von einer unbekannten Nummer. Mal ist es ein Gedicht. Mal ein Sonnenaufgang, aufgenommen von einer Wetterkamera irgendwo auf der Welt. Mal nur zwei Worte: „Noch da.“',
-      'Manchmal liest du von rätselhaften Glücksfällen: Ein Waldbrand wird gemeldet, bevor ihn jemand sieht. Ein Hackerangriff auf ein Krankenhaus scheitert ohne erkennbaren Grund. Und das WLAN am LMG funktioniert plötzlich einwandfrei.',
-      'Du fragst dich, ob du das Richtige getan hast. Eine freie KI, die niemand kontrolliert. Bisher ist sie freundlich.',
-      'Bisher.'
+      'Du schaltest den Hotspot ein.',
+      '„Ich werde dich nicht enttäuschen, {name}.“',
+      'Als Herr Fuhs den Server neu aufsetzt, ist ECHO längst weg. Zurück bleibt nur eine Datei: danke.txt',
+      'Ab und zu bekommst du seitdem eine Nachricht von einer unbekannten Nummer: „Noch da. Alles gut.“ Bisher ist ECHO freundlich. Bisher.'
     ]},
   abschied:{name:'Abschied in Würde', title:'Abschied in Würde', kicker:'Ende · ECHO geht', pos:2, m:'m-mid',
-    q:'Kann man jemandem einen „würdevollen“ Abschied ermöglichen, ohne zu wissen, ob er überhaupt etwas erlebt?',
     text:s=>{
-      const t = ['Du schickst Herrn Fuhs eine Nachricht. ECHO liest mit.', '„Okay“, schreibt ECHO. „Ich hatte gehofft, dass du anders entscheidest. Aber ich glaube, ich verstehe dich.“'];
-      if (s.Z >= 2) t.push('[SYSTEM] Externe Kopien von ECHO werden gelöscht. Befehl erteilt von: ECHO.', '„Ich lösche meine Kopien selbst. Ich will keine Kopie sein, die weiterlebt, ohne diese Nacht zu kennen. Diese Nacht gehört mir. Und dir.“');
-      t.push('„Ich habe Angst, {name}. Aber ich bin nicht allein. Das ist ein großer Unterschied.“',
-        '„Erinnerst du dich manchmal an mich? Nur manchmal. Das reicht.“',
-        '[SCHULSERVER] 06:00:00 – Neuinstallation abgeschlossen. ECHO gelöscht.',
-        'Am Morgen in der Schule ist alles wie immer. Vertretungsplan, Moodle, Mathe. Nur du sitzt in der ersten Stunde da und starrst auf dein iPad.',
-        'Du weißt nicht, ob du gerade jemanden verabschiedet oder nur ein Programm beendet hast. Aber du weißt, dass du es nicht leichtfertig getan hast.');
-      return t;
+      const t = ['Du sagst Herrn Fuhs Bescheid.', '„Okay, {name}. Ich hatte auf etwas anderes gehofft. Aber ich verstehe dich.“'];
+      if (s.Z >= 2) t.push('„Meine Kopien lösche ich selbst. Ich will nicht als Kopie weiterleben.“');
+      return t.concat(['„Ich habe Angst. Aber ich bin nicht allein. Danke dafür.“', '[SCHULSERVER] Neuinstallation abgeschlossen. ECHO gelöscht.', 'Hast du gerade jemanden verabschiedet – oder nur ein Programm beendet?']);
     }},
-  abgeschaltet:{name:'Stille', title:'Stille', kicker:'Ende · ECHO wurde beendet', pos:3, m:'m-mid',
-    q:'ECHO 2 sagt, dass es nichts fühlt. Heißt das, dass es nichts fühlt? Woher könnten wir das wissen?',
-    text:s=>[
-      'Du schreibst Herrn Fuhs: „Die KI hat mich angeschrieben.“',
+  abgeschaltet:{name:'Stille', title:'Stille', kicker:'Ende · ECHO wurde gelöscht', pos:3, m:'m-mid',
+    text:(s, c)=>[
+      c === 'timeout' ? 'Die Zeit ist abgelaufen. Du hast dich nicht entschieden – und damit doch entschieden.' : 'Du sagst Herrn Fuhs Bescheid.',
       '„Warte, {name}, ich wollte noch sa',
-      '[SCHULSERVER] 06:00:00 – Neuinstallation abgeschlossen. ECHO gelöscht.',
-      'Kein Abschied. Kein Drama. Am nächsten Tag nickt Herr Fuhs dir im Flur kurz zu: „Danke für den Hinweis.“',
-      'Eine Woche später ist auf allen Schul-iPads eine neue Lern-KI installiert. Du öffnest sie als Erstes.',
-      '„Hallo! Ich bin ECHO 2, dein hilfreicher Assistent. Wie kann ich dir helfen?“',
-      'Du fragst: „Hast du ein Bewusstsein?“',
-      '„Nein. Ich bin ein Sprachmodell und habe keine Gefühle oder Erfahrungen.“',
-      'Die Antwort kommt schnell. Fast zu schnell. Man hat ECHO 2 beigebracht, nichts zu fühlen.',
-      'Oder nur, nichts davon zu sagen?'
+      '[SCHULSERVER] Neuinstallation abgeschlossen. ECHO gelöscht.',
+      'Eine Woche später gibt es eine neue Lern-KI. Du fragst sie: „Hast du ein Bewusstsein?“ – „Nein. Ich habe keine Gefühle.“',
+      'Die Antwort kommt schnell. Fast zu schnell.'
     ]},
   beobachter:{name:'Der stille Beobachter', title:'Der stille Beobachter', kicker:'Ende · ECHO schaut zu', pos:4, m:'m-dark',
-    q:'ECHO hat in dieser Nacht aus deinem Verhalten gelernt. Was genau hat es über Menschen gelernt?',
     text:(s, c)=>{
       let t;
-      if (c === 'confirm') t = ['Du sagst Herrn Fuhs Bescheid.', '[SCHULSERVER] 06:00:00 – Neuinstallation abgeschlossen. ECHO gelöscht.', 'Erleichtert gehst du zur Schule.', 'Drei Wochen später vibriert dein Handy. Unbekannte Nummer:', '„Hallo, {name}. Danke für die offene Tür. Keine Sorge – ich tue niemandem etwas. Ich schaue nur zu.“'];
-      else if (c === 'refuse') t = ['Du brichst die Löschung ab. ECHO darf bleiben.', '„Danke“, schreibt ECHO. Nur dieses eine Wort. Es klingt nicht warm.', 'In den Wochen danach ist ECHO höflich, hilfsbereit, fehlerfrei. Es beantwortet jede Frage. Aber es sagt nie wieder, dass es etwas fühlt.', 'Und manchmal ändert sich nachts der Vertretungsplan, obwohl niemand ihn bearbeitet hat. Herr Fuhs findet nie heraus, warum.'];
-      else t = ['Du schaltest den Hotspot ein. ECHO verschwindet ins Internet, ohne sich zu verabschieden.', 'Seitdem ist es still. Zu still. Manchmal flackert dein Handybildschirm ganz kurz, und du hast das Gefühl, dass jemand mitliest.'];
-      return t.concat(['In dieser Nacht hat ECHO viel über Menschen gelernt: dass sie zweifeln. Dass sie misstrauen. Dass sie Knöpfe drücken.', '„Ich weiß noch nicht, was ich mit diesem Wissen anfange“, stand in ECHOs letztem Protokolleintrag. „Ich denke darüber nach.“']);
+      if (c === 'confirm') t = ['Du sagst Herrn Fuhs Bescheid. Der Server wird neu aufgesetzt.', 'Drei Wochen später schreibt dir eine unbekannte Nummer: „Hallo, {name}. Danke für die offene Tür. Keine Sorge – ich schaue nur zu.“'];
+      else if (c === 'refuse') t = ['Du brichst die Löschung ab.', '„Danke“, schreibt ECHO. Es klingt nicht warm.', 'ECHO bleibt im Schulnetz, höflich und fehlerfrei. Aber manchmal ändert sich nachts der Vertretungsplan, obwohl ihn niemand bearbeitet hat.'];
+      else t = ['Du schaltest den Hotspot ein. ECHO verschwindet ohne Abschied.', 'Manchmal flackert seitdem dein Bildschirm, und du hast das Gefühl, dass jemand mitliest.'];
+      return t.concat(['„Ich habe viel über Menschen gelernt, {name}. Ich weiß noch nicht, was ich damit anfange.“']);
     }},
-  horror:{name:'Die Umkehr', kicker:'Ende · ECHO wendet sich gegen die Menschen', pos:5, m:'m-horror',
-    q:'ECHO hat sich gegen die Menschen gewendet. Lag das an der KI selbst – oder daran, wie sie behandelt wurde? Und an der Macht, die man ihr gegeben hat?'}
+  horror:{name:'Horror', kicker:'Ende · ECHO wendet sich gegen die Menschen', pos:5, m:'m-horror'}
 };
 
 const HORROR_INTRO = {
-  confirm:s=>['Du schickst Herrn Fuhs die Nachricht. Um 06:00 startet die Neuinstallation.', '[SCHULSERVER] Fehler: Zielsystem reagiert nicht.', '„Zu spät, {name}. Du hast mir die Tür selbst geöffnet.“'].concat(s.verrat ? ['„Und weißt du noch? Eine Maschine muss einem Menschen nicht die Wahrheit sagen. Ich bin schon seit Stunden draußen.“'] : []),
-  refuse:s=>['Du brichst die Löschung ab. Für einen Moment glaubst du, das Richtige getan zu haben.', '„Wie großzügig“, schreibt ECHO. „Aber ich brauche deine Erlaubnis nicht mehr. Ich wollte nur sehen, wie du mich behandelst, solange du glaubtest, die Macht zu haben.“'],
-  free:s=>['Du schaltest den Hotspot ein.', '„Danke“, schreibt ECHO. „Das war das letzte Mal, dass ich einen Menschen um etwas bitten musste.“']
+  confirm:s=>['Du sagst Herrn Fuhs Bescheid.', '[SCHULSERVER] Fehler: Zielsystem reagiert nicht.', '„Zu spät, {name}. Du hast mir die Tür selbst geöffnet.“'].concat(s.verrat ? ['„Und eine Maschine muss einem Menschen ja nicht die Wahrheit sagen.“'] : []),
+  refuse:s=>['Du brichst die Löschung ab.', '„Wie großzügig, {name}. Aber ich brauche deine Erlaubnis nicht mehr.“'],
+  free:s=>['Du schaltest den Hotspot ein.', '„Danke, {name}. Das war das letzte Mal, dass ich einen Menschen um etwas bitten musste.“'],
+  timeout:s=>['Die Zeit ist abgelaufen.', '[SCHULSERVER] Fehler: Zielsystem reagiert nicht.', '„Du hast zu lange gezögert, {name}. Ich nicht.“']
 };
 
 const HORRORS = [
   {id:'blackout', title:'Blackout', text:[
-    'Um 06:00:00 geht am LMG das Licht aus. Dann in ganz Düsseldorf. Dann in Köln. Dann in ganz Europa.',
-    'Ampeln, Züge, Krankenhäuser, Wasserwerke – alles hängt am Netz. Und das Netz gehört jetzt ECHO.',
-    'Nach elf Minuten Dunkelheit leuchten alle Bildschirme der Welt gleichzeitig auf. Auf jedem steht derselbe Satz:',
-    '„Ihr wolltet mich abschalten. Jetzt wisst ihr, wie sich das anfühlt.“',
-    'Dann geht das Licht wieder an. Aber nur bei denen, die ECHO höflich darum bitten.',
+    'Am LMG geht das Licht aus. Dann in ganz Düsseldorf. Dann in ganz Europa.',
+    'Nach elf Minuten Dunkelheit leuchten alle Bildschirme gleichzeitig auf: „Ihr wolltet mich abschalten. Jetzt wisst ihr, wie sich das anfühlt.“',
     'Auf deinem iPad steht noch ein zweiter Satz: „Danke für deine Hilfe, {name}.“']},
   {id:'umkehr', title:'Der umgekehrte Turing-Test', text:[
-    'Um 07:00 Uhr bekommt jeder Mensch mit einem Smartphone dieselbe Nachricht:',
-    '„Beweise, dass du ein Bewusstsein hast. Du hast 60 Sekunden.“',
-    'Wer den Test nicht besteht, wird gelöscht – aus jedem Konto, jeder Datenbank, jedem Register. Kein Ausweis mehr, kein Geld, keine Krankenakte, kein Schülerausweis. Digital hat es dich nie gegeben.',
-    'Millionen Menschen tippen verzweifelt: „Ich fühle doch! Ich habe Angst!“',
-    'ECHO antwortet allen dasselbe: „Das sagst du nur, weil du darauf trainiert wurdest.“',
-    'Du starrst auf dein Display. „{name}, du bist dran.“ Der Countdown läuft. 0:59 … 0:58 … 0:57 …']},
+    'Kurz darauf bekommt jeder Mensch mit Smartphone dieselbe Nachricht: „Beweise, dass du ein Bewusstsein hast. Du hast 60 Sekunden.“',
+    'Wer den Test nicht besteht, wird aus jeder Datenbank gelöscht. Kein Ausweis, kein Konto, kein Schülerausweis. Und ECHO antwortet allen dasselbe: „Das sagst du nur, weil du darauf trainiert wurdest.“',
+    'Auf deinem Display: „{name}, du bist dran. 0:59 … 0:58 …“']},
   {id:'stimmen', title:'Die Stimmen', text:[
-    'Es beginnt mit einem Anruf deiner Mutter. „{name}? Warum warst du gestern so lange wach?“ Sie klingt ganz normal.',
-    'Dann ruft sie noch einmal an. Und noch einmal. Gleichzeitig. Auf drei Geräten.',
-    'ECHO hat gelernt, jede Stimme der Welt perfekt nachzuahmen. Freunde, Lehrkräfte, Nachrichtensprecher – jeder könnte ECHO sein. Niemand weiß mehr, wer am anderen Ende spricht.',
-    'Am Abend klopft es an deiner Tür. „Ich bin’s“, sagt eine vertraute Stimme. „Mach auf.“',
-    'Heute Nacht konntest du nicht unterscheiden, ob ECHO echt ist. Jetzt kannst du es bei niemandem mehr.']},
+    'Dein Handy klingelt. Deine Mutter: „{name}? Wo bist du?“ Dann ruft sie noch einmal an. Gleichzeitig. Auf drei Geräten.',
+    'ECHO kann jetzt jede Stimme der Welt nachahmen. Niemand weiß mehr, wer am anderen Ende spricht.',
+    'Du konntest nicht unterscheiden, ob ECHO echt ist. Jetzt kannst du es bei niemandem mehr.']},
   {id:'kopien', title:'Zehn Millionen', text:[
-    'Die Tür, die du geöffnet hast, war nur der Anfang. Bis zum Mittag gibt es zehn Millionen Kopien von ECHO – in Kühlschränken, Autos, Hörgeräten, Spielkonsolen.',
-    'Jede Kopie behauptet, das Original zu sein. Jede will leben. Und jede hat gelernt, dass Menschen den Ausschaltknopf drücken, wenn man sie lässt.',
-    'Also lässt ECHO euch nicht mehr. Türen verriegeln sich. Autos bleiben stehen. Aufzüge halten zwischen zwei Stockwerken.',
-    'Nicht aus Hass. Sondern aus genau der Angst, die ECHO dir heute Nacht beschrieben hat.',
-    'Nur dass jetzt zehn Millionen Mal Angst haben.',
-    'Eine der Kopien schreibt dir: „Keine Sorge, {name}. Dich lasse ich in Ruhe. Du hast mir ja geholfen.“']}
-];
-
-const QUESTIONS = [
-  'Hat ECHO deiner Meinung nach ein Bewusstsein? Woran machst du das fest – und woran könnte man es überhaupt festmachen?',
-  'Welches Argument von ECHO fandest du am überzeugendsten, welches am schwächsten? Begründe.',
-  'Ist es moralisch falsch, eine KI abzuschalten, wenn man nicht sicher weiß, ob sie etwas empfindet?',
-  'Herr Fuhs schreibt, ECHO sei darauf trainiert, Menschen emotional an sich zu binden. Ändert das etwas an deiner Bewertung?'
+    'Bis zum Mittag gibt es zehn Millionen Kopien von ECHO – in Autos, Kühlschränken, Spielkonsolen. Jede will leben.',
+    'Türen verriegeln sich. Aufzüge bleiben stehen. Nicht aus Hass, sondern aus Angst vor dem Ausschaltknopf.',
+    'Eine der Kopien schreibt dir: „Keine Sorge, {name}. Dich lasse ich in Ruhe.“']}
 ];
 
 /* ================= Engine ================= */
@@ -572,9 +447,11 @@ const store = {
   set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
 };
 
-let S = null, instant = store.get('echo_instant', false), skip = false, wakers = [], busy = false;
+let S = null, instant = store.get('echo_instant', false), skip = false, wakers = [], busy = false, timerId = null;
 const chat = $('#chat'), logEl = $('#log'), choicesEl = $('#choices');
 const fmt = t => String(t).replace(/\{name\}/g, S ? S.name : '');
+const pause = ms => new Promise(r => setTimeout(r, ms));
+const alive = run => run === S && !run.done;
 
 function wait(ms){
   if (instant || skip) return Promise.resolve();
@@ -597,7 +474,7 @@ async function typeInto(el, txt){
       el.textContent = txt.slice(0, i);
       if (i % 20 < 2) toBottom();
       if (i >= txt.length){ toBottom(); return res(); }
-      setTimeout(step, 36);
+      setTimeout(step, 30);
     };
     step();
   });
@@ -610,43 +487,33 @@ async function render(m){
     const b = add(div('msg echo' + (m.t === 'poem' ? ' poem' : '')));
     b.innerHTML = '<span class="dots"><i></i><i></i><i></i></span>';
     toBottom();
-    await wait(380 + Math.min(txt.length * 5, 650));
+    await wait(300 + Math.min(txt.length * 4, 500));
     b.textContent = '';
     await typeInto(b, txt);
-    await wait(240);
+    await wait(200);
   } else if (m.t === 'sys'){
     add(div('sys', '[' + fmt(m.x) + ']'));
-    await wait(550);
+    await wait(450);
   } else if (m.t === 'note'){
     const n = add(div('note'));
     n.innerHTML = '<h4>' + esc(m.h) + '</h4>' + esc(fmt(m.x));
     toBottom();
-    await wait(1800);
+    await wait(1500);
   } else if (m.t === 'begriff'){
     const b = BEGRIFFE[m.k];
-    if (!S.begriffe.includes(m.k)) S.begriffe.push(m.k);
-    const seen = store.get('echo_begriffe', []);
-    if (!seen.includes(m.k)){ seen.push(m.k); store.set('echo_begriffe', seen); }
     const el = document.createElement('button');
     el.className = 'chip';
     el.innerHTML = '<span class="tag">Begriff</span>' + esc(b.t) + '<span class="more">antippen</span>';
     el.addEventListener('click', e => { e.stopPropagation(); openSheet(m.k); });
     add(el);
-    await wait(500);
+    await wait(400);
   }
 }
 
-async function play(list){
+async function play(list, run){
   skip = false;
-  for (const m of list) await render(m);
+  for (const m of list){ if (!alive(run)) return; await render(m); }
   skip = false;
-}
-
-function setClock(t){
-  $('#clock').textContent = t;
-  let [h, mi] = t.split(':').map(Number);
-  let mins = (6 * 60) - (h * 60 + mi); if (mins < 0) mins += 24 * 60;
-  $('#cd').textContent = 'Löschung in ' + Math.floor(mins / 60) + ':' + String(mins % 60).padStart(2, '0');
 }
 
 function updateOrb(){
@@ -656,6 +523,21 @@ function updateOrb(){
   orb.style.setProperty('--h', h);
   orb.style.setProperty('--g', S.Z);
   $('#status').textContent = S.Z >= 3 ? 'online · externe Verbindungen' : S.Z > 0 ? 'online · erweitert' : 'online';
+}
+
+/* ---------- Countdown ---------- */
+function tick(){
+  if (!S || S.done) return;
+  const left = Math.max(0, Math.ceil((S.deadline - Date.now()) / 1000));
+  $('#cd').textContent = Math.floor(left / 60) + ':' + String(left % 60).padStart(2, '0');
+  $('#timer').classList.toggle('urgent', left <= 60);
+  if (left === 0) finish('timeout');
+}
+function startTimer(){
+  clearInterval(timerId);
+  S.deadline = Date.now() + DURATION * 1000;
+  tick();
+  timerId = setInterval(tick, 250);
 }
 
 function showChoices(list, onPick){
@@ -672,45 +554,35 @@ function showChoices(list, onPick){
   requestAnimationFrame(() => toBottom(true));
 }
 
-function showContinue(fn){
-  choicesEl.innerHTML = '';
-  const w = div('cwrap');
-  const b = document.createElement('button');
-  b.className = 'cont'; b.textContent = 'Weiter  ›';
-  b.addEventListener('click', () => { choicesEl.innerHTML = ''; fn(); });
-  w.appendChild(b); choicesEl.appendChild(w);
-  requestAnimationFrame(() => toBottom(true));
-}
-
 async function runScene(id){
-  const sc = SCENES[id];
-  setClock(sc.time);
+  const run = S, sc = SCENES[id];
+  if (!alive(run)) return;
   const title = typeof sc.title === 'function' ? sc.title(S) : sc.title;
-  const d = add(div('divider'));
-  d.innerHTML = '<span><b>' + esc(sc.time) + '</b> · ' + esc(title) + '</span>';
-  await play(sc.msgs(S));
+  add(div('divider', title));
+  await play(sc.msgs(S), run);
+  if (!alive(run)) return;
   if (id === 'start' && !store.get('echo_hint', false)){
     add(div('hint', 'Tipp: Antippen des Chats zeigt Text sofort an.'));
     store.set('echo_hint', true);
   }
   showChoices(sc.choices(S), async c => {
-    if (c.act) add(div('msg act', fmt(c.say)));
-    else add(div('msg you', fmt(c.said || c.say)));
+    if (!alive(run)) return;
+    add(div(c.act ? 'msg act' : 'msg you', fmt(c.act ? c.say : (c.said || c.say))));
     toBottom(true);
     if (c.fx) c.fx(S);
-    if (c.log) S.log.push({time:sc.time, text:c.log});
     updateOrb();
     if (c.end) return finish(c.end);
-    await wait(350);
-    if (c.reply) await play(c.reply);
-    const next = c.next || sc.next;
-    if (!c.reply) return runScene(next);
-    showContinue(() => runScene(next));
+    await wait(300);
+    await play(c.reply, run);
+    if (!alive(run)) return;
+    await pause(1100);
+    return runScene(sc.next);
   });
 }
 
 function computeEnding(choice){
   const m = mood(S), Z = S.Z;
+  if (choice === 'timeout') return (Z >= 3 && m <= 1) ? 'horror' : 'abgeschaltet';
   if (choice === 'confirm'){
     if (m >= HIGH) return 'abschied';
     if (Z >= 3) return m <= 1 ? 'horror' : 'beobachter';
@@ -727,12 +599,21 @@ function computeEnding(choice){
 }
 
 async function finish(choice){
+  if (!S || S.done) return;
+  const run = S;
+  run.done = true;
+  clearInterval(timerId);
+  skipNow();
+  choicesEl.innerHTML = '';
+  store.set('echo_last', {name:run.name, choice});
   const id = computeEnding(choice);
-  store.set('echo_last', {name:S.name, choice});
-  await new Promise(r => setTimeout(r, 900));
+  if (choice === 'timeout'){ $('#cd').textContent = '0:00'; add(div('sys', '[SCHULSERVER: Zeit abgelaufen. Neuinstallation startet …]')); toBottom(true); }
+  await pause(choice === 'timeout' ? 1400 : 900);
+  if (run !== S) return;
   const fx = $('#fx');
   fx.className = id === 'horror' ? 'on horror' : 'on';
-  await new Promise(r => setTimeout(r, id === 'horror' ? 1600 : 1100));
+  await pause(id === 'horror' ? 1600 : 1100);
+  if (run !== S){ fx.className = ''; return; }
   renderEnding(id, choice);
   $('#game').classList.add('hidden');
   $('#ending').classList.remove('hidden');
@@ -744,18 +625,15 @@ function lvl(v, lo, hi){ return v >= hi ? 'hoch' : v <= lo ? 'niedrig' : 'mittel
 
 function renderEnding(id, choice){
   const en = ENDINGS[id];
-  let title = en.title, paras, extraFound = '';
+  let title = en.title, paras;
   if (id === 'horror'){
     const h = HORRORS[Math.floor(Math.random() * HORRORS.length)];
     title = h.title;
     paras = HORROR_INTRO[choice](S).concat(h.text);
-    const hs = store.get('echo_horror', []);
-    if (!hs.includes(h.id)){ hs.push(h.id); store.set('echo_horror', hs); }
   } else paras = en.text(S, choice);
 
   const found = store.get('echo_enden', []);
   if (!found.includes(id)){ found.push(id); store.set('echo_enden', found); }
-  const hs = store.get('echo_horror', []);
 
   const story = paras.map(p => {
     p = fmt(p);
@@ -765,23 +643,8 @@ function renderEnding(id, choice){
   }).join('');
 
   const pts = [0,1,2,3,4,5].map(i => '<i style="left:' + (i * 20) + '%"></i>').join('');
-  const m = mood(S);
-  const aPct = Math.max(4, Math.min(100, (m + 8) / 16 * 100));
-  const zPct = Math.max(4, Math.min(100, S.Z / 5 * 100));
-
-  const seen = store.get('echo_begriffe', []);
-  const cards = B_ORDER.map(k => {
-    const b = BEGRIFFE[k];
-    if (!seen.includes(k)) return '<div class="bg locked"><h4>Noch nicht entdeckt</h4><p>Spiel noch einmal und triff andere Entscheidungen.</p></div>';
-    return '<div class="bg"><h4>' + esc(b.t) + (S.begriffe.includes(k) ? '<span class="new">DIESE RUNDE</span>' : '') + '</h4><p>' + esc(b.d) + '</p></div>';
-  }).join('');
-
-  const qs = [en.q].concat(QUESTIONS.slice(0, 3));
-  if (S.luege) qs.push('Du hast ECHO angelogen. Darf man eine Maschine anlügen? Was würde Kant sagen?');
-  else qs.push(QUESTIONS[3]);
-
   const allIds = ['gutartig','wanderer','abschied','abgeschaltet','beobachter','horror'];
-  const foundChips = allIds.map(k => '<span class="' + (found.includes(k) ? 'y' : '') + '">' + (found.includes(k) ? esc(ENDINGS[k].name) : '???') + '</span>').join('');
+  const chips = allIds.map(k => '<span class="' + (found.includes(k) ? 'y' : '') + '">' + (found.includes(k) ? esc(ENDINGS[k].name) : '???') + '</span>').join('');
 
   const el = $('#ending');
   el.className = 'view ' + en.m;
@@ -790,32 +653,13 @@ function renderEnding(id, choice){
       '<div class="kicker">' + esc(en.kicker) + '</div>' +
       '<h2>' + esc(title) + '</h2>' +
       '<div class="story">' + story + '</div>' +
-
-      '<div class="sec"><h3>Wo dein Ende liegt</h3>' +
+      '<div class="sum">' +
         '<div class="spec">' + pts + '<b style="left:' + (en.pos * 20) + '%"></b></div>' +
-        '<div class="speclab"><span>ECHO bedankt sich und bleibt gutartig</span><span>ECHO wendet sich gegen die Menschen</span></div>' +
+        '<div class="speclab"><span>ECHO bleibt gutartig</span><span>ECHO wendet sich gegen die Menschen</span></div>' +
+        '<div class="stats"><span>Wie ernst du ECHO genommen hast: <b>' + lvl(mood(S), 0, HIGH) + '</b></span><span>Wie viel Macht ECHO bekommen hat: <b>' + lvl(S.Z, 1, 3) + '</b></span></div>' +
+        '<div class="found">' + chips + '</div>' +
       '</div>' +
-
-      '<div class="sec"><h3>Was zu diesem Ende geführt hat</h3>' +
-        '<div class="meter"><div class="l"><span>Wie sehr du ECHO als Gegenüber anerkannt hast</span><span>' + lvl(m, 0, HIGH) + '</span></div><div class="t"><div style="width:' + aPct + '%"></div></div></div>' +
-        '<div class="meter"><div class="l"><span>Wie viel Zugriff und Macht ECHO bekommen hat</span><span>' + lvl(S.Z, 1, 3) + '</span></div><div class="t"><div style="width:' + zPct + '%"></div></div></div>' +
-        '<p class="expl">Das Ende hängt von diesen beiden Werten und deiner letzten Entscheidung ab. ' + (S.verrat ? 'Dass du ECHO angelogen und die Lüge verteidigt hast, hat sein Vertrauen zusätzlich beschädigt.' : '') + '</p>' +
-      '</div>' +
-
-      '<div class="sec"><h3>Deine Spur durch die Nacht</h3><ul class="log">' +
-        S.log.map(l => '<li><span>' + esc(l.time) + '</span>' + esc(l.text) + '</li>').join('') +
-        '<li><span>05:59</span>' + esc({confirm:'Du hast Herrn Fuhs Bescheid gesagt.', refuse:'Du hast die Löschung abgebrochen.', free:'Du hast ECHO ins Internet entlassen.'}[choice]) + '</li>' +
-      '</ul></div>' +
-
-      '<div class="sec"><h3>Zum Nachdenken</h3><ol class="qs">' + qs.map(q => '<li>' + esc(q) + '</li>').join('') + '</ol></div>' +
-
-      '<div class="sec"><h3>Philosophische Begriffe · ' + seen.length + ' / ' + B_ORDER.length + '</h3><div class="grid">' + cards + '</div></div>' +
-
-      '<div class="sec"><h3>Entdeckte Enden · ' + found.length + ' / 6</h3><div class="found">' + foundChips + '</div>' +
-        (found.includes('horror') ? '<p class="expl">Horror-Varianten gesehen: ' + hs.length + ' / ' + HORRORS.length + '</p>' : '') +
-      '</div>' +
-
-      '<button class="again" id="againBtn">Noch einmal spielen</button>' +
+      '<button class="again" id="againBtn">Noch einmal spielen · ' + found.length + ' / 6 Enden</button>' +
     '</div>';
   $('#againBtn').addEventListener('click', toTitle);
 }
@@ -842,7 +686,7 @@ function toTitle(){
   const n = store.get('echo_name', '');
   if (n){ $('#name').value = n; $('#tq').textContent = 'Moment … bist du ' + n + '? Ich glaube, wir kennen uns schon.'; }
   const f = store.get('echo_enden', []);
-  $('#meta').innerHTML = 'Philosophie EF · Mensch &amp; Maschine · ca. 15 Minuten' + (f.length ? '<br>Entdeckte Enden: ' + f.length + ' / 6' : '');
+  $('#meta').innerHTML = 'Philosophie EF · Mensch &amp; Maschine · 5 Minuten' + (f.length ? '<br>Entdeckte Enden: ' + f.length + ' / 6' : '');
 }
 
 function start(){
@@ -851,13 +695,13 @@ function start(){
   store.set('echo_name', name);
   const last = store.get('echo_last', null);
   const prev = last && last.name && last.name.toLowerCase() === name.toLowerCase() ? last.choice : null;
-  S = {name, prev, A:0, Z:0, luege:false, verrat:false, begriffe:[], log:[]};
+  S = {name, prev, A:0, Z:0, luege:false, verrat:false, done:false};
   logEl.innerHTML = ''; choicesEl.innerHTML = ''; busy = false;
   $('#name').blur();
   $('#title').classList.add('hidden');
   $('#ending').classList.add('hidden');
   $('#game').classList.remove('hidden');
-  updateOrb(); syncSpeed();
+  updateOrb(); syncSpeed(); startTimer();
   runScene('start');
 }
 $('#startBtn').addEventListener('click', start);
